@@ -1143,21 +1143,13 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 25a9fb42d361f46ad89221f6d301e96e, type: 2}
-    - target: {fileID: 6225146426892464802, guid: 410e7c522bb18e946b2a3ac32a19f898, type: 3}
-      propertyPath: jumpForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7148401876135481603, guid: 410e7c522bb18e946b2a3ac32a19f898, type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
     - target: {fileID: 7359165592552933693, guid: 410e7c522bb18e946b2a3ac32a19f898, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 997765039}
     - target: {fileID: 7359165592552933693, guid: 410e7c522bb18e946b2a3ac32a19f898, type: 3}
       propertyPath: m_VersionIndex
-      value: 2223
+      value: 2226
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1592,10 +1584,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 725995769560613070, guid: 23f7b8eb7aa23c446a5cda72762c8e43, type: 3}
-      propertyPath: screen
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 783792740284002573, guid: 23f7b8eb7aa23c446a5cda72762c8e43, type: 3}
       propertyPath: m_Name
       value: KeyBase
