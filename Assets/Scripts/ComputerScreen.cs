@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class ComputerScreen : MonoBehaviour
 {
-    public List<string> sentences = new List<string>();
-    private int sentenceIndex = 0;
+    //public List<string> sentences = new List<string>();
+    //private int sentenceIndex = 0;
 
-    public string currentSentence = "Hello!";
+    //public string currentSentence = "Hello!";
 
     public string playerTypedSentence = string.Empty;
 
@@ -20,8 +20,9 @@ public class ComputerScreen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentSentence = sentences[0];
-
+        //currentSentence = sentences[0];
+        playerText.text = playerTypedSentence;
+        Debug.Log(playerText.text);
 
     }
 
@@ -58,7 +59,7 @@ public class ComputerScreen : MonoBehaviour
 
         playerText.text = playerTypedSentence;
 
-        CheckIfSentenceComplete();
+        //CheckIfSentenceComplete();
     }
 
     public void ToggleShiftKey(bool isOn)
@@ -66,10 +67,6 @@ public class ComputerScreen : MonoBehaviour
         isShiftHeldDown = isOn;
     }
 
-    public void ToggleCapsLock()
-    {
-        isCapsLockOn = !isCapsLockOn;
-    }
 
     public void PressBackspace()
     {
@@ -79,22 +76,31 @@ public class ComputerScreen : MonoBehaviour
             playerText.text = playerTypedSentence;
         }
     }
-
-    public void CheckIfSentenceComplete()
+    public void PressClear()
     {
-        if(currentSentence.Equals(playerTypedSentence))
+        if (playerTypedSentence.Length > 0)
         {
-            ShowNextSentence();
+            playerTypedSentence = string.Empty;
+            playerText.text = playerTypedSentence;
         }
     }
 
-    public void ShowNextSentence()
-    {
-        sentenceIndex++;
+    //public void CheckIfSentenceComplete()
+    //{
+    //    if(currentSentence.Equals(playerTypedSentence))
+    //    {
+    //        ShowNextSentence();
+    //    }
+    //}
 
-        currentSentence = sentences[sentenceIndex];
+    //public void ShowNextSentence()
+    //{
+    //    sentenceIndex++;
 
-        playerTypedSentence = string.Empty;
-        playerText.text = playerTypedSentence;
-    }
+    //    currentSentence = sentences[sentenceIndex];
+
+    //    playerTypedSentence = string.Empty;
+    //    playerText.text = playerTypedSentence;
+    //}
+
 }

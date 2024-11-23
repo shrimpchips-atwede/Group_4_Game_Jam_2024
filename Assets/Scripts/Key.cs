@@ -5,12 +5,16 @@ using UnityEngine;
 public class Key : MonoBehaviour
 {
     public char key;
-
+    public ComputerScreen screen;
+    protected virtual void start()
+    {
+        screen = FindFirstObjectByType<ComputerScreen>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Key")
         {
-            Debug.Log(key.ToString() + " pressed!");
+            screen.AddKeyToSentence(key);
         }
     }
 

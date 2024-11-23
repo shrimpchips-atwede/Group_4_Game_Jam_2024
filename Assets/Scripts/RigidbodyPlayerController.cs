@@ -3,8 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class RigidbodyPlayerController : MonoBehaviour
 {
+    //From claire: in the script:
+    //at the top with the variables
+    //you'll have private animator anim,
+    //then in start youll do anim = getcomponent animator.
+    //in the animator in unity: set up the bools, isWalking
+    //, isJumping, whatever else. then back in the script
+    //when movement is being used, you will say something
+    //like if movementvelocity > 0 then isWalking is true
+    //and otherwise its false. then for the jump, if !isgrounded then isJumping = true
+    private Animator animator;
     public Rigidbody rb;
     public Collider playerCollider;
     public float speed, sensitivity, maxForce;
@@ -14,8 +25,16 @@ public class RigidbodyPlayerController : MonoBehaviour
     public bool isGrounded;
     public float jumpForce;
 
+    public bool isMoving;
+    void Start()
+    {
+        playerCollider = GetComponent<Collider>();
+        animator = GetComponent<Animator>();
+    }
+
     public void OnMove(InputAction.CallbackContext context)
     {
+
         move = context.ReadValue<Vector2>();
 
     }
@@ -33,18 +52,23 @@ public class RigidbodyPlayerController : MonoBehaviour
 
     }
     // Start is called before the first frame update
-    void Start()
-    {
-        playerCollider = GetComponent<Collider>();
-    }
+
 
     // Update is called once per frame
     void Update()
     {
 
+        //if (rb.velocity == Vector3.zero);
+        //{
+        //    isMoving = false;
+        //    Debug.Log(isMoving);
+        //}
+        //isMoving = true;
     }
     void Move()
     {
+        //movementvelocity > 0 then isWalking is true
+
         //find target velocity
         Vector3 currentVelocity = rb.velocity;
         Vector3 targetVelocity = new Vector3(move.x, 0, move.y);//what we were trying to do earlier!!!
@@ -62,7 +86,13 @@ public class RigidbodyPlayerController : MonoBehaviour
                 //limit force
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
 
-        
+        //if (rb.velocity == Vector3.zero)
+        //{
+        //    isMoving = false;
+        //    Debug.Log("is moving is " + isMoving);
+        //}
+        //Debug.Log("is moving is " + isMoving);
+
     }
     void Jump()
     {
