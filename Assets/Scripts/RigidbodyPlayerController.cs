@@ -36,6 +36,14 @@ public class RigidbodyPlayerController : MonoBehaviour
     {
 
         move = context.ReadValue<Vector2>();
+        if(move != Vector2.zero)
+        {
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
 
     }
 
@@ -100,6 +108,7 @@ public class RigidbodyPlayerController : MonoBehaviour
         Vector3 jumpForces = Vector3.zero;
         if(isGrounded)
         {
+            animator.SetBool("isJumping", true);
             jumpForces = Vector3.up * jumpForce;
 
         }
@@ -108,5 +117,9 @@ public class RigidbodyPlayerController : MonoBehaviour
     public void SetGrounded(bool state)
     {
         isGrounded = state;
+        if(isGrounded == false)
+        {
+            animator.SetBool("isJumping", false);
+        }
     }
 }
