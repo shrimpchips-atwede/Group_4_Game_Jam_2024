@@ -5,24 +5,34 @@ using UnityEngine;
 public class Key : MonoBehaviour
 {
     public char key;
-    public ComputerScreen screen;
+    //public MainComputerScreen screen;
     protected virtual void start()
     {
-        screen = FindFirstObjectByType<ComputerScreen>();
+        //screen = FindFirstObjectByType<MainComputerScreen>();
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Key")
         {
-            screen.AddKeyToSentence(key);
+            KeyPress();
         }
+
+    }
+    protected virtual void KeyPress()
+    {
+        MainComputerScreen.instance.AddKeyToSentence(key);
+
+    }
+    protected virtual void KeyRelease()
+    {
+        Debug.Log("you shouldnt see this on key release");
     }
 
     void OnTriggerExit(Collider other)
     {
         if (other.tag == "Key")
         {
-            Debug.Log(key.ToString() + " released!");
+            KeyRelease();
         }
     }
 }
