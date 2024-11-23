@@ -6,7 +6,7 @@ using TMPro;
 public class Assignments : MonoBehaviour
 {
     public List<string> assignmentList = new List<string>();
-    public int currentAssignment;
+    public int currentAssignment = 0;
     public TextMeshPro assignmentText;
     public ScoreManager scoreManager;
     //public MainComputerScreen screen;
@@ -36,5 +36,11 @@ public class Assignments : MonoBehaviour
         {
             Debug.Log("incorrect text");
         }
+    }
+
+    public void StartFirstAssignment()
+    {
+        assignmentText.text = assignmentList[currentAssignment];
+        //DoAnimationStuff
     }
 }

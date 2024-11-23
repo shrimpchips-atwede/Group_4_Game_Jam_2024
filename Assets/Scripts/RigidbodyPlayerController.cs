@@ -83,7 +83,7 @@ public class RigidbodyPlayerController : MonoBehaviour
         targetVelocity *= speed;
 
         //align direction
-        targetVelocity = transform.TransformDirection(targetVelocity);
+        //targetVelocity = transform.TransformDirection(targetVelocity);
 
         //calc forces
         Vector3 velocityChange = (targetVelocity - currentVelocity);
@@ -93,6 +93,10 @@ public class RigidbodyPlayerController : MonoBehaviour
         Vector3.ClampMagnitude(velocityChange, maxForce);
                 //limit force
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
+        Vector3 targetDirection3D = new Vector3(move.x, 0, move.y);
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection3D, Vector3.up);
+        transform.rotation = targetRotation;
 
         //if (rb.velocity == Vector3.zero)
         //{
