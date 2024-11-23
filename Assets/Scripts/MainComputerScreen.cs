@@ -19,6 +19,11 @@ public class MainComputerScreen : MonoBehaviour
     public TextMeshPro playerText;
     public static MainComputerScreen instance;
     public Assignments assignments;
+
+    private bool isPlayer1Ready = false;
+    private bool isPlayer2Ready = false;
+    private bool hasGameStarted = false;
+
     void Awake()
     {
         instance = this;
@@ -62,8 +67,30 @@ public class MainComputerScreen : MonoBehaviour
 
     }
 
+    public void PlayerReady(bool isPlayer1, bool isReady)
+    {
+        if (isPlayer1)
+        {
+            isPlayer1Ready = isReady;
+        }
+        else
+        {
+            isPlayer2Ready = isReady;
+        }
+
+        if(isPlayer1Ready && isPlayer2Ready && hasGameStarted == false)
+        {
+            hasGameStarted = true;
+            StartGame();
+        }
+    }
 
 
+    private void StartGame()
+    {
+        assignments.StartFirstAssignment();
+        //Do Whatever you want to do one time when you start the game
+    }
 
     public void PressBackspace()
     {

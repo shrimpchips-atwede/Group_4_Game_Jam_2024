@@ -36,6 +36,14 @@ public class RigidbodyPlayerController : MonoBehaviour
     {
 
         move = context.ReadValue<Vector2>();
+        if(move != Vector2.zero)
+        {
+            animator.SetBool("isMoving", true);
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
 
     }
 
@@ -75,7 +83,7 @@ public class RigidbodyPlayerController : MonoBehaviour
         targetVelocity *= speed;
 
         //align direction
-        targetVelocity = transform.TransformDirection(targetVelocity);
+        //targetVelocity = transform.TransformDirection(targetVelocity);
 
         //calc forces
         Vector3 velocityChange = (targetVelocity - currentVelocity);
@@ -85,6 +93,10 @@ public class RigidbodyPlayerController : MonoBehaviour
         Vector3.ClampMagnitude(velocityChange, maxForce);
                 //limit force
         rb.AddForce(velocityChange, ForceMode.VelocityChange);
+
+        Vector3 targetDirection3D = new Vector3(move.x, 0, move.y);
+        Quaternion targetRotation = Quaternion.LookRotation(targetDirection3D, Vector3.up);
+        transform.rotation = targetRotation;
 
         //if (rb.velocity == Vector3.zero)
         //{
@@ -100,6 +112,7 @@ public class RigidbodyPlayerController : MonoBehaviour
         Vector3 jumpForces = Vector3.zero;
         if(isGrounded)
         {
+            animator.SetBool("isJumping", true);
             jumpForces = Vector3.up * jumpForce;
 
         }
@@ -108,5 +121,9 @@ public class RigidbodyPlayerController : MonoBehaviour
     public void SetGrounded(bool state)
     {
         isGrounded = state;
+        if(isGrounded == false)
+        {
+            animator.SetBool("isJumping", false);
+        }
     }
 }

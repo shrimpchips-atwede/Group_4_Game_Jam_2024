@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6820929564516566065}
   - component: {fileID: 7148401876135481603}
   - component: {fileID: 6225146426892464802}
+  - component: {fileID: 1358312962702808344}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -225,6 +226,27 @@ MonoBehaviour:
   isGrounded: 0
   jumpForce: 5
   isMoving: 0
+--- !u!95 &1358312962702808344
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 744843118391217000}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 8b5bd40b767476749a4cdc0a6746ab48, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1515461513979023098
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,7 +518,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 2223
+  m_VersionIndex: 2226
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
