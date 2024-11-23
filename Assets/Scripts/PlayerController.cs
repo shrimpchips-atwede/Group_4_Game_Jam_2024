@@ -5,9 +5,18 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+
+
+
+
+
+
     private Vector3 movement = Vector3.zero;
     public float speed = 5f;
-    private CharacterController characterController;
+
+
+
+
 
     private float gravity = 9.1f;
     public float jumpHeight = 3f;
@@ -16,15 +25,24 @@ public class PlayerController : MonoBehaviour
     private float groundedTimer;
     public float groundedTimerBuffer = 0.2f;
     private bool isPlayerGrounded = true;
+
+
+    public float lookSpeed = 10;
+    private Vector3 curLoc;
+    private Vector3 prevLoc;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        characterController = GetComponent<CharacterController>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
+
         if (characterController.isGrounded == true)
         {
             groundedTimer = 0f;
@@ -60,6 +78,7 @@ public class PlayerController : MonoBehaviour
         characterController.Move(moveDir * Time.deltaTime); //call char controller and tell it to move.
                                                             //if im not using the stock char controller,
                                                             //will have to make my own script for this...
+        */
     }
 
     public void OnJump(InputAction.CallbackContext context)
@@ -75,6 +94,8 @@ public class PlayerController : MonoBehaviour
     {
         if (context.performed == true)//check on frame key is pressed. 
         {
+            //prevLoc = curLoc;
+            //curLoc = transform.position;
             Debug.Log("moving");
             Vector2 moveDirection = context.ReadValue<Vector2>();//scary new syntax.
                                                                  //make temp var, set it to the key being pressed translated into a vector 2.
@@ -83,7 +104,16 @@ public class PlayerController : MonoBehaviour
                                                                  //i.e, it sees that player presses w, and returns (0,1). S is (0,-1). A is (-1, 0). D is (1,0).
 
 
+
+            //Vector3 v3 = moveDirection;
+            //Debug.Log(v3);
+            //if (moveDirection.x >= 0)
+            //{
+            //    this.transform.rotation = QuaternionAngles.Rotate(v3, Vector3.zero);
+            //}
             movement = new Vector3(moveDirection.x, 0f, moveDirection.y);
+            //transform.position = curLoc;
+            //transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.LookRotation(transform.position - prevLoc), lookSpeed);
         }
 
         if (context.canceled == true)//check on frame key is released

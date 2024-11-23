@@ -6,17 +6,19 @@ public class Key : MonoBehaviour
 {
     public char key;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.tag == "Key")
+        {
+            Debug.Log(key.ToString() + " pressed!");
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnTriggerExit(Collider other)
     {
-        
+        if (other.tag == "Key")
+        {
+            Debug.Log(key.ToString() + " released!");
+        }
     }
-
 }
