@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: TestRedToon
   m_Shader: {fileID: -6465566751694194690, guid: d90df33c4ca21364ea4bc556d22f6c19, type: 3}
-  m_Parent: {fileID: 2100000, guid: 1c30930cef8b9a144a710da8f104749c, type: 2}
+  m_Parent: {fileID: 2100000, guid: 33a5eea1863bc4747a66c74ced9962c4, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
