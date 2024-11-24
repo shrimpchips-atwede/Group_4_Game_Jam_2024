@@ -58,7 +58,10 @@ public class MainComputerScreen : MonoBehaviour
         if (isCountingUp == true)
         {
             timerCountingUp -= Time.deltaTime; //Timer increases by the time between frames (at a rate of 1 second per second)
-            timertext.text = timerCountingUp.ToString();
+            int minutes = Mathf.FloorToInt(timerDuration / 60);
+            int seconds = Mathf.FloorToInt(timerDuration % 60);
+
+            timertext.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
         if (timerCountingUp <= 0f) //If the timer reaches above the timer duration...
         {
