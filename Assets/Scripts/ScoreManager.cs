@@ -5,6 +5,7 @@ using UnityEngine;
 public class ScoreManager : MonoBehaviour
 {
     public int score;
+    //
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,10 @@ public class ScoreManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void EndGame()
+    {
+     //check score, loaf
     }
     
 }
