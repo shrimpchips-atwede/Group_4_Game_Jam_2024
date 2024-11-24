@@ -27,11 +27,11 @@ public class MainComputerScreen : MonoBehaviour
 
 
 
-    public float timerCountingUp = 0f;  //The current time on the timer;
+    public float timerCounting = 0f;  //The current time on the timer;
     public float timerDuration = 300f;    //The time we need to wait before the timer finishes.
     public TextMeshPro timertext;
 
-    public bool isCountingUp = false;
+    public bool isCounting = false;
 
     void Awake()
     {
@@ -44,29 +44,31 @@ public class MainComputerScreen : MonoBehaviour
         //currentSentence = sentences[0];
         playerText.text = playerTypedSentence;
         Debug.Log(playerText.text);
-        timertext.text = timerCountingUp.ToString();
+        timertext.text = timerDuration.ToString();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.O))
         {
-            StartGame();
+            isCounting = true;
         }
-        if (isCountingUp == true)
+
+        if (isCounting == true)
         {
-            timerCountingUp -= Time.deltaTime; //Timer increases by the time between frames (at a rate of 1 second per second)
+            timerDuration -= Time.deltaTime; //Timer increases by the time between frames (at a rate of 1 second per second)
             int minutes = Mathf.FloorToInt(timerDuration / 60);
             int seconds = Mathf.FloorToInt(timerDuration % 60);
 
             timertext.text = string.Format("{0:00}:{1:00}", minutes, seconds);
         }
-        if (timerCountingUp <= 0f) //If the timer reaches above the timer duration...
+        if (timerDuration <= 0f) //If the timer reaches above the timer duration...
         {
-
             EndGame();
+            
 
         }
 
@@ -126,7 +128,7 @@ public class MainComputerScreen : MonoBehaviour
 
     private void StartGame()
     {
-        isCountingUp = true;
+        isCounting = true;
         assignments.StartFirstAssignment();
         //show text w timer when game starts.
     }
