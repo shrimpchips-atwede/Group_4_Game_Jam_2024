@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
+    public AudioSource keySound;
     public char key;
     //public MainComputerScreen screen;
     protected virtual void start()
@@ -14,12 +15,14 @@ public class Key : MonoBehaviour
     {
         if (other.tag == "Key")
         {
+            keySound.Play();
             KeyPress();
         }
 
     }
     protected virtual void KeyPress()
     {
+
         MainComputerScreen.instance.AddKeyToSentence(key);
 
     }
