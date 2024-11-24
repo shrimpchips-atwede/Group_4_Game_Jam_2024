@@ -8,6 +8,7 @@ public class ClearKey : Key
     protected override void KeyPress()
     {
         MainComputerScreen.instance.PressClear();
+
     }
 
 }
