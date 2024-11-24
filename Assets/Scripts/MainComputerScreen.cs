@@ -107,6 +107,7 @@ public class MainComputerScreen : MonoBehaviour
         }
 
     }
+
     public void PressClear()
     {
         if (playerTypedSentence.Length > 0)
