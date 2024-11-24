@@ -7,7 +7,7 @@ public class GroundCheck : MonoBehaviour
     public RigidbodyPlayerController playerController;
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("OnTriggerEnter :) " + other.gameObject.name);
+        //Debug.Log("OnTriggerEnter :) " + other.gameObject.name);
         if (other.gameObject == playerController.gameObject)
             return;
         playerController.SetGrounded(true);
@@ -15,7 +15,7 @@ public class GroundCheck : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        Debug.Log("OnTriggerExit :) " + other.gameObject.name);
+        //Debug.Log("OnTriggerExit :) " + other.gameObject.name);
         if (other.gameObject == playerController.gameObject)
             return;
         playerController.SetGrounded(false);
@@ -23,7 +23,7 @@ public class GroundCheck : MonoBehaviour
     }
     void OnTriggerStay(Collider other)
     {
-        Debug.Log("OnTriggerStay :) " + other.gameObject.name);
+        //Debug.Log("OnTriggerStay :) " + other.gameObject.name);
         if (other.gameObject == playerController.gameObject)
             return;
         playerController.SetGrounded(true);
