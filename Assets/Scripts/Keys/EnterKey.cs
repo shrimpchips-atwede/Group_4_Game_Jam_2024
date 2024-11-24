@@ -13,5 +13,6 @@ public class EnterKey : Key
     protected override void KeyPress()
     {
         MainComputerScreen.instance.CheckPlayerTextMainComputer();
+        Debug.Log(this.gameObject.name);
     }
 }

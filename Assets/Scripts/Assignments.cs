@@ -29,14 +29,14 @@ public class Assignments : MonoBehaviour
         //screen = FindFirstObjectByType<MainComputerScreen>();//use dotween to translate
 
     }
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            StartFirstAssignment();
-        }
+    //public void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        StartFirstAssignment();
+    //    }
 
-    }
+    //}
     public void CheckPlayerText()
     {
         if(MainComputerScreen.instance.playerTypedSentence == assignmentList[currentAssignment])
