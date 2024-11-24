@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
@@ -12,14 +13,9 @@ public class ScoreManager : MonoBehaviour
         DontDestroyOnLoad(this);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void EndGame()
     {
-     //check score, loaf
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
-    
+
 }

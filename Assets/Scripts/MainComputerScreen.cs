@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainComputerScreen : MonoBehaviour
 {
@@ -24,6 +25,14 @@ public class MainComputerScreen : MonoBehaviour
     private bool isPlayer2Ready = false;
     private bool hasGameStarted = false;
 
+
+
+    public float timerCountingUp = 0f;  //The current time on the timer;
+    public float timerDuration = 300f;    //The time we need to wait before the timer finishes.
+    public TextMeshPro timertext;
+
+    public bool isCountingUp = false;
+
     void Awake()
     {
         instance = this;
@@ -35,16 +44,40 @@ public class MainComputerScreen : MonoBehaviour
         //currentSentence = sentences[0];
         playerText.text = playerTypedSentence;
         Debug.Log(playerText.text);
-        
+        timertext.text = timerCountingUp.ToString();
 
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            StartGame();
+        }
+        if (isCountingUp == true)
+        {
+            timerCountingUp -= Time.deltaTime; //Timer increases by the time between frames (at a rate of 1 second per second)
+            timertext.text = timerCountingUp.ToString();
+        }
+        if (timerCountingUp <= 0f) //If the timer reaches above the timer duration...
+        {
 
+            EndGame();
+
+        }
+
+       
+        
+
+        //Debug.Log(timerCountingUp);
     }
 
+    public void EndGame()
+    {
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
     public void CheckPlayerTextMainComputer()
     {
         assignments.CheckPlayerText();
@@ -90,8 +123,9 @@ public class MainComputerScreen : MonoBehaviour
 
     private void StartGame()
     {
+        isCountingUp = true;
         assignments.StartFirstAssignment();
-        //Do Whatever you want to do one time when you start the game
+        //show text w timer when game starts.
     }
 
     public void PressBackspace()
