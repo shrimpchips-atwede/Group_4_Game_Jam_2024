@@ -11,8 +11,10 @@ public class Assignments : MonoBehaviour
     public GameObject AssignmentStartPos;
     public GameObject AssignmentPaper;
 
+    public SkinnedMeshRenderer assignmentPaperRenderer;
+
     public int currentAssignment = 0;
-    public TextMeshPro assignmentText;
+    //public TextMeshPro assignmentText;
     public ScoreManager scoreManager;
 
     public Animator paperAnim;
@@ -25,12 +27,14 @@ public class Assignments : MonoBehaviour
     {
         scoreManager = FindFirstObjectByType<ScoreManager>();
         //screen = FindFirstObjectByType<MainComputerScreen>();//use dotween to translate
-        StartFirstAssignment();
-    }
 
-    // Update is called once per frame
-    void Update()
+    }
+    public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            StartFirstAssignment();
+        }
 
     }
     public void CheckPlayerText()
@@ -39,9 +43,10 @@ public class Assignments : MonoBehaviour
         {
             paperAnim.SetTrigger("Fall");
             Invoke("AssignmentReset", 1f); //The 1f here is saying "Call this function after 1 swcond!!!!!!!!! may need to change later
-
+            Debug.Log("fall animation");
+            //this is where id assign a dotween thing
             currentAssignment++;
-            assignmentText.text = assignmentList[currentAssignment];
+            //assignmentText.text = assignmentList[currentAssignment];
 
             scoreManager.score++;
             Debug.Log("correct text"); 
@@ -50,20 +55,39 @@ public class Assignments : MonoBehaviour
         if (MainComputerScreen.instance.playerTypedSentence != assignmentList[currentAssignment])
         {
             Debug.Log("incorrect text");
+            //this is where id put in buzzer sound effect
         }
     }
 
     public void StartFirstAssignment()
     {
-        assignmentText.text = assignmentList[currentAssignment];
-        //DoAnimationStuff
+        //assignmentText.text = assignmentList[currentAssignment];//would set assignment text
+        
+        AssignmentReset();//maybe?????
     }
 
     public void AssignmentReset()
     {
+        MainComputerScreen.instance.PressClear();
+
         AssignmentPaper.transform.position = AssignmentStartPos.transform.position;
-        AssignmentPaper.GetComponent<MeshRenderer>().material = materials[currentAssignment];
+        assignmentPaperRenderer.material = materials[currentAssignment];
         paperAnim.SetTrigger("Print");
-        randomDrop.Drop();
+        Debug.Log("print animation");
+        //do dotween stuff here
+        if (currentAssignment == 1)
+        {
+            randomDrop.Drop(0);
+        }
+        if (currentAssignment == 4)
+        {
+            randomDrop.Drop(1);
+        }
+        if (currentAssignment == 6)
+        {
+            randomDrop.Drop(2);
+        }
+
+
     }
 }

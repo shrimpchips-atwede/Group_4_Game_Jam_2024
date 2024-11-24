@@ -13,14 +13,14 @@ public class RandomDrop : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.H))
         {
-            Drop();
+            Drop(1);
         }
     }
-    public void Drop()
+    public void Drop(int whichdrop)
     {
 
 
-        GameObject go = Instantiate(randDrops[assignments.currentAssignment], spawnloc.transform);
+        GameObject go = Instantiate(randDrops[whichdrop], spawnloc.transform);
 
         Destroy(go, 7f);
 

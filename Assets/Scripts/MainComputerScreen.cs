@@ -114,7 +114,7 @@ public class MainComputerScreen : MonoBehaviour
         {
             playerTypedSentence = string.Empty;
             playerText.text = playerTypedSentence;
-            Debug.Log("why");
+            Debug.Log("clear");
         }
     }
 
