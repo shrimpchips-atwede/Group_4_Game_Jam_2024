@@ -8,13 +8,13 @@ public class RandomDrop : MonoBehaviour
 
     public Assignments assignments;
     public GameObject spawnloc;
-    public Light halo;
+    //public Light halo;
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            Drop(1);
-        }
+        //if (Input.GetKeyDown(KeyCode.H))
+        //{
+        //    Drop(1);
+        //}
     }
     public void Drop(int whichdrop)
     {

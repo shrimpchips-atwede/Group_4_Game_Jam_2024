@@ -34,7 +34,7 @@ public class RigidbodyPlayerController : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-
+        
         move = context.ReadValue<Vector2>();
         if(move != Vector2.zero)
         {

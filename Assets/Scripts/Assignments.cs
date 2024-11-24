@@ -29,18 +29,7 @@ public class Assignments : MonoBehaviour
         //screen = FindFirstObjectByType<MainComputerScreen>();//use dotween to translate
 
     }
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            StartFirstAssignment();
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            StartFirstAssignment();
-        }
 
-    }
     public void CheckPlayerText()
     {
         if(MainComputerScreen.instance.playerTypedSentence == assignmentList[currentAssignment])
@@ -50,6 +39,10 @@ public class Assignments : MonoBehaviour
             Debug.Log("fall animation");
             //this is where id assign a dotween thing
             currentAssignment++;
+            if (currentAssignment == assignmentList.Count)
+            {
+                MainComputerScreen.instance.EndGame();
+            }
             //assignmentText.text = assignmentList[currentAssignment];
 
             scoreManager.score++;
@@ -72,6 +65,7 @@ public class Assignments : MonoBehaviour
 
     public void AssignmentReset()
     {
+
         MainComputerScreen.instance.PressClear();
 
         AssignmentPaper.transform.position = AssignmentStartPos.transform.position;

@@ -23,14 +23,14 @@ public class EndScreen : MonoBehaviour
         score = scoreManager.score;
 
         scoreText.text = score.ToString();
-        //if (scoreManager.score <= 2)
-        //{
-        //    BG.GetComponent<Image>().sprite = badBG;
-        //}
-        //else
-        //{
-        //    BG.GetComponent<Image>().useSpriteMesh = goodBG;
-        //}
+        if (scoreManager.score <= 2)
+        {
+            BG.GetComponent<Image>().sprite = badBG;
+        }
+        else
+        {
+            BG.GetComponent<Image>().sprite = goodBG;
+        }
     }
     // Start is called before the first frame update
     public void Restart()

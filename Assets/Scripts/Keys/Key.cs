@@ -6,9 +6,12 @@ public class Key : MonoBehaviour
 {
     //public AudioSource keySound;
     public char key;
+
+    private AudioSource audioSource;
     //public MainComputerScreen screen;
     protected virtual void start()
     {
+        audioSource = GetComponent<AudioSource>();
         //screen = FindFirstObjectByType<MainComputerScreen>();
     }
     private void OnTriggerEnter(Collider other)
@@ -25,6 +28,11 @@ public class Key : MonoBehaviour
 
         MainComputerScreen.instance.AddKeyToSentence(key);
         Debug.Log("key");
+        if(audioSource != null)
+        {
+            audioSource.Play();
+
+        }
 
     }
     protected virtual void KeyRelease()

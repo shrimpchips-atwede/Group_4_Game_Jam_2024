@@ -42,9 +42,9 @@ public class MainComputerScreen : MonoBehaviour
     void Start()
     {
         //currentSentence = sentences[0];
-        playerText.text = playerTypedSentence;
+        //playerText.text = playerTypedSentence;
         Debug.Log(playerText.text);
-        timertext.text = timerDuration.ToString();
+
 
     }
 
@@ -52,10 +52,10 @@ public class MainComputerScreen : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            isCounting = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    StartGame();
+        //}
 
         if (isCounting == true)
         {
@@ -89,18 +89,22 @@ public class MainComputerScreen : MonoBehaviour
     }
     public void AddKeyToSentence(char character)
     {
-        if (isShiftHeldDown == true)
+        if(playerTypedSentence.Length < 8)
         {
-            playerTypedSentence += char.ToUpper(character);
+            if (isShiftHeldDown == true)
+            {
+                playerTypedSentence += char.ToUpper(character);
 
+            }
+            else
+            {
+
+                playerTypedSentence += character.ToString();
+            }
+
+            playerText.text = playerTypedSentence;
         }
-        else
-        {
-
-            playerTypedSentence += character.ToString();
-        }
-
-        playerText.text = playerTypedSentence;
+        
 
 
     }
@@ -129,6 +133,7 @@ public class MainComputerScreen : MonoBehaviour
     private void StartGame()
     {
         isCounting = true;
+        playerText.text = playerTypedSentence;
         assignments.StartFirstAssignment();
         //show text w timer when game starts.
     }
