@@ -145,15 +145,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a36e5dc8755ad3942ab27883311b6260, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -23.64255
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a36e5dc8755ad3942ab27883311b6260, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.378
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a36e5dc8755ad3942ab27883311b6260, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -61.427616
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a36e5dc8755ad3942ab27883311b6260, type: 3}
       propertyPath: m_LocalRotation.w
@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 457adbc06e6bef743aeb165bc3a5a372, type: 2}
     - target: {fileID: 8513859187771203891, guid: a36e5dc8755ad3942ab27883311b6260, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -379,7 +379,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5809763362175408}
   serializedVersion: 4
-  m_Mass: 5
+  m_Mass: 2
   m_Drag: 0
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
