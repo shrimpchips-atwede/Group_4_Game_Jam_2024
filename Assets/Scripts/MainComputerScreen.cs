@@ -94,13 +94,14 @@ public class MainComputerScreen : MonoBehaviour
 
     public void PressBackspace()
     {
-        Debug.Log("pressBackspace");
-        Debug.Log(playerTypedSentence.Length);
-        Debug.Log(playerTypedSentence.Substring(0, playerTypedSentence.Length - 1));
         if (playerTypedSentence.Length > 0)
         {
+            Debug.Log("pressBackspace");
+            Debug.Log(playerTypedSentence.Length);
+            Debug.Log(playerTypedSentence.Substring(0, playerTypedSentence.Length - 1));
+        
 
-         playerTypedSentence =  playerTypedSentence.Substring(0, playerTypedSentence.Length - 1);
+            playerTypedSentence =  playerTypedSentence.Substring(0, playerTypedSentence.Length - 1);
             playerText.text = playerTypedSentence;
 
         }
