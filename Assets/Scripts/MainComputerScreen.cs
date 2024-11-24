@@ -72,10 +72,12 @@ public class MainComputerScreen : MonoBehaviour
         if (isPlayer1)
         {
             isPlayer1Ready = isReady;
+            Debug.Log("p1 is ready: " + isReady);
         }
         else
         {
             isPlayer2Ready = isReady;
+            Debug.Log("p2 is ready: " + isReady);
         }
 
         if(isPlayer1Ready && isPlayer2Ready && hasGameStarted == false)
