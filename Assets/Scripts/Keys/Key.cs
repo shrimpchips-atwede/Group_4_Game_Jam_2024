@@ -24,6 +24,7 @@ public class Key : MonoBehaviour
     {
 
         MainComputerScreen.instance.AddKeyToSentence(key);
+        Debug.Log("key");
 
     }
     protected virtual void KeyRelease()

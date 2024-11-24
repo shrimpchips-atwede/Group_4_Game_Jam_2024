@@ -80,7 +80,7 @@ public class MainComputerScreen : MonoBehaviour
 
         if(isPlayer1Ready && isPlayer2Ready && hasGameStarted == false)
         {
-            hasGameStarted = true;
+            hasGameStarted = true;//movecamera????
             StartGame();
         }
     }
