@@ -8,5 +8,12 @@ public class BackspaceKey : Key
     protected override void KeyPress()
     {
         MainComputerScreen.instance.PressBackspace();
+
+        if (audioSource != null)
+        {
+            Debug.Log("audiosourceisnotnull");
+            audioSource.Play();
+            Debug.Log("played sound");
+        }
     }
 }

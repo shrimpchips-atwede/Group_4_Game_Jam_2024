@@ -8,7 +8,12 @@ public class ClearKey : Key
     protected override void KeyPress()
     {
         MainComputerScreen.instance.PressClear();
-
+        if (audioSource != null)
+        {
+            Debug.Log("audiosourceisnotnull");
+            audioSource.Play();
+            Debug.Log("played sound");
+        }
     }
 
 }

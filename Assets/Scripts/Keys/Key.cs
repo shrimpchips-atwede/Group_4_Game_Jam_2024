@@ -7,9 +7,9 @@ public class Key : MonoBehaviour
     //public AudioSource keySound;
     public char key;
 
-    private AudioSource audioSource;
-    //public MainComputerScreen screen;
-    protected virtual void start()
+    public AudioSource audioSource;
+    //public MainComputerScreen screen; 
+    protected virtual void Start()
     {
         audioSource = GetComponent<AudioSource>();
         //screen = FindFirstObjectByType<MainComputerScreen>();

@@ -6,10 +6,10 @@ public class DontTouchKey : Key
 {
     public RandomDrop randDrop;
 
-
-    protected override void start()
+     
+    protected override void Start()
     {
-        base.start();
+        base.Start();
         randDrop = FindFirstObjectByType<RandomDrop>();
     }
     private void OnTriggerStay(Collider other)

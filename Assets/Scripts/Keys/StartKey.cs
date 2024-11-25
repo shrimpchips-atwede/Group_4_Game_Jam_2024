@@ -9,6 +9,12 @@ public class StartKey : Key
     // Start is called before the first frame update
     protected override void KeyPress()
     {
+        if (audioSource != null)
+        {
+            Debug.Log("audiosourceisnotnull");
+            audioSource.Play();
+            Debug.Log("played sound");
+        }
         MainComputerScreen.instance.PlayerReady(isPlayer1Key, true);
     }
 

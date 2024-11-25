@@ -14,5 +14,13 @@ public class EnterKey : Key
     {
         MainComputerScreen.instance.CheckPlayerTextMainComputer();
         Debug.Log(this.gameObject.name);
+
+        if (audioSource != null)
+        {
+            Debug.Log("audiosourceisnotnull");
+            audioSource.Play();
+            Debug.Log("played sound");
+        }
+
     }
 }
