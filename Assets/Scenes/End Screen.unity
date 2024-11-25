@@ -841,8 +841,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ab6e409e5b0c1e44951ef85ea9c5660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goodBG: {fileID: 21300000, guid: f7ca7756ae382c04ab10945a27c957c9, type: 3}
-  badBG: {fileID: 21300000, guid: 75059601993ebf649b6c5f7cebd80725, type: 3}
+  goodBG: {fileID: 21300000, guid: dcc41320b68190647a297b6993bd74bd, type: 3}
+  badBG: {fileID: 21300000, guid: 43b2a2fcba227674a97aff723fd585f1, type: 3}
   scoreManager: {fileID: 0}
   scoreText: {fileID: 1320207222}
   score: 5
