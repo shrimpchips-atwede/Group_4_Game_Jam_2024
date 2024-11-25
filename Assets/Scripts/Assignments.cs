@@ -20,6 +20,8 @@ public class Assignments : MonoBehaviour
     public Animator paperAnim;
 
     public RandomDrop randomDrop;
+    public AudioSource printersound;
+    public AudioSource fallsound;
 
     //public MainComputerScreen screen;
     // Start is called before the first frame update
@@ -35,6 +37,7 @@ public class Assignments : MonoBehaviour
         if(MainComputerScreen.instance.playerTypedSentence == assignmentList[currentAssignment])
         {
             paperAnim.SetTrigger("Fall");
+            fallsound.Play();
             Invoke("AssignmentReset", 1f); //The 1f here is saying "Call this function after 1 swcond!!!!!!!!! may need to change later
             Debug.Log("fall animation");
             //this is where id assign a dotween thing
@@ -71,6 +74,7 @@ public class Assignments : MonoBehaviour
         AssignmentPaper.transform.position = AssignmentStartPos.transform.position;
         assignmentPaperRenderer.material = materials[currentAssignment];
         paperAnim.SetTrigger("Print");
+        printersound.Play();
         Debug.Log("print animation");
         //do dotween stuff here
         if (currentAssignment == 1)
