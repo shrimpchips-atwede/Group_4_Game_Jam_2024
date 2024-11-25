@@ -20,6 +20,7 @@ public class Key : MonoBehaviour
         {
             //keySound.Play();
             KeyPress();
+
         }
 
     }
@@ -30,8 +31,9 @@ public class Key : MonoBehaviour
         Debug.Log("key");
         if(audioSource != null)
         {
+            Debug.Log("audiosourceisnotnull");
             audioSource.Play();
-
+            Debug.Log("played sound");
         }
 
     }
