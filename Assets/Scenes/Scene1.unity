@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17811799, g: 0.22301699, b: 0.30510226, a: 1}
+  m_IndirectSpecularColor: {r: 0.17811786, g: 0.22301646, b: 0.3051016, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1280,7 +1280,7 @@ MonoBehaviour:
   - Bowling
   - office
   - working
-  - working
+  - OuAll1ne
   materials:
   - {fileID: 2100000, guid: 252d3156a3da51f43849a9888e6e0032, type: 2}
   - {fileID: 2100000, guid: a73620ce01a525646a9e8753b152b9a3, type: 2}
@@ -3285,7 +3285,7 @@ MeshRenderer:
   m_RenderingLayerMask: 0
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: a66b6f2c948751e4cb90ebc70fe02079, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
