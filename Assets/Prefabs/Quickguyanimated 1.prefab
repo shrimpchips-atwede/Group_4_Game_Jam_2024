@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1766325305660379999}
   - component: {fileID: 5274338478451233040}
   - component: {fileID: 5241275785775453101}
+  - component: {fileID: -2489328959500607644}
   m_Layer: 8
   m_Name: Quickguyanimated 1
   m_TagString: Player
@@ -197,6 +198,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!81 &-2489328959500607644
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809763362175408}
+  m_Enabled: 1
 --- !u!1 &108607550249128978
 GameObject:
   m_ObjectHideFlags: 0
