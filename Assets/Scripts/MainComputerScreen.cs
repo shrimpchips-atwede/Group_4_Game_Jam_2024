@@ -1,3 +1,4 @@
+using Cinemachine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ public class MainComputerScreen : MonoBehaviour
     private bool isPlayer2Ready = false;
     private bool hasGameStarted = false;
 
+    public CinemachineVirtualCamera cam1;
 
 
     public float timerCounting = 0f;  //The current time on the timer;
@@ -132,6 +134,7 @@ public class MainComputerScreen : MonoBehaviour
 
     private void StartGame()
     {
+        cam1.Priority = -10;
         isCounting = true;
         playerText.text = playerTypedSentence;
         assignments.StartFirstAssignment();
