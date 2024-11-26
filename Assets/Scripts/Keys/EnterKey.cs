@@ -6,9 +6,10 @@ public class EnterKey : Key
 {
     public Assignments assignments;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        //assignments = FindFirstObjectByType<Assignments>();
+        assignments = FindFirstObjectByType<Assignments>();
+        base.Start();
     }
     protected override void KeyPress()
     {

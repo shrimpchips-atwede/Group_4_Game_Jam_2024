@@ -78,7 +78,7 @@ public class RigidbodyPlayerController : MonoBehaviour
         //movementvelocity > 0 then isWalking is true
 
         //find target velocity
-        Vector3 currentVelocity = rb.velocity;
+        Vector3 currentVelocity = rb.linearVelocity;
         Vector3 targetVelocity = new Vector3(move.x, 0, move.y);//what we were trying to do earlier!!!
         targetVelocity *= speed;
 

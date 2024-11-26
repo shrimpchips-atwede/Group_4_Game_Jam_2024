@@ -28,7 +28,7 @@ public class Key : MonoBehaviour
     {
 
         MainComputerScreen.instance.AddKeyToSentence(key);
-        Debug.Log("key");
+        Debug.Log("light");
         if(audioSource != null)
         {
             Debug.Log("audiosourceisnotnull");
@@ -39,7 +39,7 @@ public class Key : MonoBehaviour
     }
     protected virtual void KeyRelease()
     {
-        Debug.Log("you shouldnt see this on key release");
+        Debug.Log("key release base");
     }
 
     void OnTriggerExit(Collider other)
