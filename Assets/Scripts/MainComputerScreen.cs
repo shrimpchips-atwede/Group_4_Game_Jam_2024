@@ -29,7 +29,7 @@ public class MainComputerScreen : MonoBehaviour
     public CinemachineVirtualCamera cam1;
 
 
-    public float timerCounting = 0f;  //The current time on the timer;
+    public float maxTime = 300f;  //The current time on the timer;
     public float timerDuration = 300f;    //The time we need to wait before the timer finishes.
     public TextMeshPro timertext;
 
@@ -62,6 +62,7 @@ public class MainComputerScreen : MonoBehaviour
             
 
         }
+
 
        
         
@@ -173,5 +174,8 @@ public class MainComputerScreen : MonoBehaviour
         
     }
 
-
+    public void CalculateWPM(int score)
+    {
+        ScoreManager.instance.wpm = ((maxTime - timerDuration) / 60) * score;
+    }
 }
