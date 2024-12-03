@@ -40,24 +40,13 @@ public class MainComputerScreen : MonoBehaviour
         instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //currentSentence = sentences[0];
-        //playerText.text = playerTypedSentence;
-        Debug.Log(playerText.text);
-
-
-    }
-
-    // Update is called once per frame
     void Update()
     {
-
-        //if (Input.GetKeyDown(KeyCode.O))
-        //{
-        //    StartGame();
-        //}
+        //DELETE THIS IF BUILDING GAME LOL
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            StartGame();
+        }
 
         if (isCounting == true)
         {
@@ -165,6 +154,23 @@ public class MainComputerScreen : MonoBehaviour
             playerText.text = playerTypedSentence;
             Debug.Log("clear");
         }
+    }
+
+    public void PressFear()
+    {
+
+
+        if(playerTypedSentence != "fear")
+        {
+            playerTypedSentence = "fear";
+        }
+
+        else if(playerTypedSentence == "fear")
+        {
+            playerTypedSentence = string.Empty;
+        }
+        playerText.text = playerTypedSentence;
+        
     }
 
 

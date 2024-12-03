@@ -12,8 +12,10 @@ public class EndScreen : MonoBehaviour
     public Sprite badBG;
     public ScoreManager scoreManager;
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI wpmText;
 
     public int score;
+
 
     public GameObject BG;
 
@@ -31,6 +33,8 @@ public class EndScreen : MonoBehaviour
         {
             BG.GetComponent<Image>().sprite = goodBG;
         }
+
+        wpmText.text = "WPM: " + scoreManager.wpm.ToString();
     }
     // Start is called before the first frame update
     public void Restart()

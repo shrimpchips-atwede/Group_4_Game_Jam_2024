@@ -98,13 +98,6 @@ public class RigidbodyPlayerController : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(targetDirection3D, Vector3.up);
         transform.rotation = targetRotation;
 
-        //if (rb.velocity == Vector3.zero)
-        //{
-        //    isMoving = false;
-        //    Debug.Log("is moving is " + isMoving);
-        //}
-        //Debug.Log("is moving is " + isMoving);
-
     }
     void Jump()
     {
