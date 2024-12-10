@@ -18,16 +18,25 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "a0a3e637-ebbe-4817-a36c-ffba54d375a8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Look",
+                    "name": "Dash",
                     "type": "Button",
-                    "id": "267f438d-7e75-432b-9d3a-9caa86e1bb9d",
-                    "expectedControlType": "Button",
+                    "id": "734a5b1b-ea77-4f33-8685-27cdd3f4566d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Down Jump",
+                    "type": "Button",
+                    "id": "ae4f8050-f785-42cd-884b-5c4de3d36c7c",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -179,14 +188,91 @@
                 },
                 {
                     "name": "",
-                    "id": "ffd2724c-1280-4212-bebc-efad1da1dbb0",
-                    "path": "<Gamepad>/rightStick",
+                    "id": "4ac09cca-fb8c-4c52-ab30-21d7ac542666",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f97d78bb-d339-48d9-b297-39e000fae87e",
+                    "path": "<Gamepad>/leftStickPress",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Controller",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "b58a244c-bd95-49bf-afc2-900cd111e7bc",
+                    "path": "OneModifier",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Look",
-                    "isComposite": false,
+                    "action": "Down Jump",
+                    "isComposite": true,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "b002caaa-92e4-41fe-a5ba-f8c9ee9433e6",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Down Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "eaae85f9-55e5-4cb9-b1a6-d6d56317c47e",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard",
+                    "action": "Down Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "One Modifier",
+                    "id": "c9fca5fc-8198-464c-a535-586064a2f1d2",
+                    "path": "OneModifier",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down Jump",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "modifier",
+                    "id": "2a18b189-7af1-4a53-958d-b5bb6bf85f77",
+                    "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Controller",
+                    "action": "Down Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "binding",
+                    "id": "8284cfb3-b448-4573-83a8-d75e64f8a4e1",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Controller",
+                    "action": "Down Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }

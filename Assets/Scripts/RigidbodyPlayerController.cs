@@ -8,31 +8,42 @@ using static UnityEditor.PlayerSettings;
 
 public class RigidbodyPlayerController : MonoBehaviour
 {
-
+    private PlayerInput playerInput;
     private Animator animator;
     public Rigidbody rb;
     public Collider playerCollider;
-    public float speed, sensitivity, maxForce;
+    public float speed, dashSpeed, baseSpeed, sensitivity, maxForce;
     private Vector2 move;
     private float lookRotation;
 
     public bool isGrounded;
     public float jumpForce;
+    public float fallMultiplier = 2.5f;
+    public float lowJumpMultiplier = 2f;
+    public SkinnedMeshRenderer skinnedMeshRenderer;
+    public List<Material> materials;
 
-    public bool isMoving;
+
+    public bool isDashing;
 
 
     void Start()
     {
-        
+
+        playerInput = GetComponent<PlayerInput>();
         playerCollider = GetComponent<Collider>();
         animator = GetComponent<Animator>();
-
+        rb = GetComponent<Rigidbody>();
         DontDestroyOnLoad(this);
+
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        int numberOfPlayers = players.Length-1;
+
+        skinnedMeshRenderer.material = materials[numberOfPlayers];
 
         GameObject spawnPos = GameObject.FindGameObjectWithTag("SpawnPos");
         this.transform.position = spawnPos.transform.position;
-
+        speed = baseSpeed;
 
     }
 
@@ -55,14 +66,21 @@ public class RigidbodyPlayerController : MonoBehaviour
     public void OnJump(InputAction.CallbackContext context)
     {
         Jump();
+    }
+
+    public void OnDash(InputAction.CallbackContext context)
+    {
+        Dash();
+    }
+    public void OnDownJump(InputAction.CallbackContext context)
+    {
+
+        DownJump();
 
     }
     private void FixedUpdate()
     {
-
         Move();
-
-
     }
 
     void Move()
@@ -91,16 +109,59 @@ public class RigidbodyPlayerController : MonoBehaviour
         transform.rotation = targetRotation;
 
     }
+    private void Update()
+    {
+        var jump = playerInput.actions["Jump"];
+        if (rb.linearVelocity.y < 0)
+        {
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;//shouldnt modify rb.velocity directly,, use rb addforce instead?
+        }
+
+        else if (rb.linearVelocity.y > 0 && !jump.IsPressed())
+        {
+            rb.linearVelocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            Debug.Log("not falling");
+        }
+    }
     void Jump()
     {
 
         Vector3 jumpForces = Vector3.zero;
         if(isGrounded)
         {
-            animator.SetBool("isJumping", true);
+            //animator.SetBool("isJumping", true);
             jumpForces = Vector3.up * jumpForce;
 
         }
+
+        rb.AddForce(jumpForces, ForceMode.VelocityChange);
+    }
+
+    void Dash()
+    {
+        if (isGrounded)
+        {
+            isDashing = !isDashing;
+            if (isDashing == true)
+            {
+                speed = dashSpeed;
+            }
+            else
+            {
+                speed = baseSpeed;
+            }
+        }
+    }
+    void DownJump()
+    {
+        Vector3 jumpForces = Vector3.zero;
+        if (!isGrounded)
+        {
+
+            jumpForces = Vector3.down * jumpForce;
+
+        }
+
         rb.AddForce(jumpForces, ForceMode.VelocityChange);
     }
     public void SetGrounded(bool state)

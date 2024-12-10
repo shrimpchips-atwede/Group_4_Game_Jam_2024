@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 1766325305660379999}
   - component: {fileID: 5274338478451233040}
   - component: {fileID: 5241275785775453101}
-  - component: {fileID: -2489328959500607644}
   m_Layer: 8
   m_Name: Quickguyanimated 1
   m_TagString: Player
@@ -122,9 +121,37 @@ MonoBehaviour:
     m_ActionId: a0a3e637-ebbe-4817-a36c-ffba54d375a8
     m_ActionName: 'Player/Jump[/Keyboard/space]'
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 267f438d-7e75-432b-9d3a-9caa86e1bb9d
-    m_ActionName: Player/Look
+      m_Calls:
+      - m_Target: {fileID: 5274338478451233040}
+        m_TargetAssemblyTypeName: RigidbodyPlayerController, Assembly-CSharp
+        m_MethodName: OnDash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 734a5b1b-ea77-4f33-8685-27cdd3f4566d
+    m_ActionName: 'Player/Dash[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5274338478451233040}
+        m_TargetAssemblyTypeName: RigidbodyPlayerController, Assembly-CSharp
+        m_MethodName: OnDownJump
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: ae4f8050-f785-42cd-884b-5c4de3d36c7c
+    m_ActionName: 'Player/Down Jump[/Keyboard/s,/Keyboard/space,/XInputControllerWindows/leftStick/down]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -172,12 +199,25 @@ MonoBehaviour:
   rb: {fileID: 1766325305660379999}
   playerCollider: {fileID: 18923921245036048}
   speed: 4
+  dashSpeed: 8
+  baseSpeed: 4
   sensitivity: 0.1
   maxForce: 1
   isGrounded: 0
-  jumpForce: 4
-  isMoving: 0
-  spawnpos: {fileID: 0}
+  jumpForce: 6
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 2
+  skinnedMeshRenderer: {fileID: 9074867906041116571}
+  materials:
+  - {fileID: 2100000, guid: c692504ea06c84b4fb4c3bf6c338f100, type: 2}
+  - {fileID: 2100000, guid: ce328f1b04cb55141b942fd53da18b6a, type: 2}
+  - {fileID: 2100000, guid: 4768e4f4683580448a76b130e4704f50, type: 2}
+  - {fileID: 2100000, guid: 2e640ddd29ba1ee4bb8f55867630436b, type: 2}
+  - {fileID: 2100000, guid: eb5734d57cca2674e8f8dff5444cb455, type: 2}
+  - {fileID: 2100000, guid: ca0918879fa3589488e5dbd0deb86637, type: 2}
+  - {fileID: 2100000, guid: a7a84d6f30b64c548a673f52a2c8225e, type: 2}
+  - {fileID: 2100000, guid: 7dd4da8894b133c40a8b16efb531556b, type: 2}
+  isDashing: 0
 --- !u!95 &5241275785775453101
 Animator:
   serializedVersion: 7
@@ -200,14 +240,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!81 &-2489328959500607644
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5809763362175408}
-  m_Enabled: 1
 --- !u!1 &108607550249128978
 GameObject:
   m_ObjectHideFlags: 0
@@ -269,7 +301,7 @@ Transform:
   m_GameObject: {fileID: 2325680872378381799}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0029, z: 0}
+  m_LocalPosition: {x: 0, y: -0.00253, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -294,8 +326,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.022222223, y: 0.0055555557, z: 0.05}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.03387078, y: 0.005555557, z: 0.00744566}
+  m_Center: {x: -0.000320096, y: 0, z: -0.0006554532}
 --- !u!114 &3122244259849605399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -647,8 +679,8 @@ MonoBehaviour:
   m_UVBias: {x: 0, y: 0}
   m_DecalLayerMask: 1
   m_ScaleMode: 0
-  m_Offset: {x: 0, y: 0, z: 2.8749905}
-  m_Size: {x: 1, y: 1, z: 5.749981}
+  m_Offset: {x: 0, y: 0, z: 50}
+  m_Size: {x: 1, y: 1, z: 100}
   m_FadeFactor: 0.602
 --- !u!1 &8859292889363981778
 GameObject:
@@ -705,7 +737,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0eb172b490ba6654fa03464f4bb5065c, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
