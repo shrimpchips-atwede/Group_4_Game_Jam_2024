@@ -17,6 +17,7 @@ public class ScoreManager : MonoBehaviour
     public GameObject spawnPos;
 
 
+
     private void Awake()
     {
         // It is save to remove listeners even if they
@@ -57,7 +58,20 @@ public class ScoreManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
     }
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
 
+            GameObject spawnPos = GameObject.FindGameObjectWithTag("SpawnPos");
+
+            foreach (GameObject go in gos)
+            {
+                go.transform.position = spawnPos.transform.position;
+            }
+        }
+    }
     public void EndGame()
     {
         MainComputerScreen.instance.CalculateWPM(score);
@@ -71,6 +85,8 @@ public class ScoreManager : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
         Debug.Log("Re-Initializing", this);
+
+
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
 
         GameObject spawnPos = GameObject.FindGameObjectWithTag("SpawnPos");

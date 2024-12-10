@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 819500506578559754}
-  - component: {fileID: 18923921245036048}
   - component: {fileID: 4464385210183597598}
   - component: {fileID: 1766325305660379999}
   - component: {fileID: 5274338478451233040}
   - component: {fileID: 5241275785775453101}
+  - component: {fileID: 4572068245663354215}
   m_Layer: 8
   m_Name: Quickguyanimated 1
   m_TagString: Player
@@ -40,29 +40,6 @@ Transform:
   - {fileID: 3385455993253464170}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 189, z: 0}
---- !u!136 &18923921245036048
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5809763362175408}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.018210033
-  m_Height: 0.11286926
-  m_Direction: 1
-  m_Center: {x: -0.00017227928, y: 0.05856537, z: 0.00015968719}
 --- !u!114 &4464385210183597598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,7 +174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 1766325305660379999}
-  playerCollider: {fileID: 18923921245036048}
+  playerCollider: {fileID: 0}
   speed: 4
   dashSpeed: 8
   baseSpeed: 4
@@ -240,6 +217,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &4572068245663354215
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809763362175408}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.046013612, y: 0.08420297, z: 0.031169496}
+  m_Center: {x: 0.00086902786, y: 0.050843317, z: -0.0018553368}
 --- !u!1 &108607550249128978
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,9 +281,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1763628212387792662}
-  - component: {fileID: 5205531241397149816}
   - component: {fileID: 3122244259849605399}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,33 +298,12 @@ Transform:
   m_GameObject: {fileID: 2325680872378381799}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.00253, z: 0}
+  m_LocalPosition: {x: 0, y: 0.0136, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 819500506578559754}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5205531241397149816
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2325680872378381799}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.03387078, y: 0.005555557, z: 0.00744566}
-  m_Center: {x: -0.000320096, y: 0, z: -0.0006554532}
 --- !u!114 &3122244259849605399
 MonoBehaviour:
   m_ObjectHideFlags: 0

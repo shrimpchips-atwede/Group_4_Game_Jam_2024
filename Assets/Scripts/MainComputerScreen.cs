@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static Cinemachine.CinemachineTriggerAction.ActionSettings;
 
 public class MainComputerScreen : MonoBehaviour
 {
@@ -42,6 +43,8 @@ public class MainComputerScreen : MonoBehaviour
 
     public int maxedTypedSentLength = 46;
 
+    public GameObject bgMusic1;
+    public GameObject bgMusic2;
     void Awake()
     {
         instance = this;
@@ -49,13 +52,13 @@ public class MainComputerScreen : MonoBehaviour
 
     void Update()
     {
-        ////DELETE THIS IF BUILDING GAME LOL
-        //if (Input.GetKeyDown(KeyCode.O))
-        //{
-        //    StartGame();
-        //}
+        //DELETE THIS IF BUILDING GAME LOL
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            StartGame();
+        }
 
-        //Timer();
+        Timer();
     }
     public void CheckPlayerTextMainComputer()
     {
@@ -120,8 +123,18 @@ public class MainComputerScreen : MonoBehaviour
         cam1.Priority = -10;
         //if scoremanager game mode is set to 0, then
 
+        if (ScoreManager.instance.gameMode == 0)
+        {
+            Instantiate(bgMusic1);
+        }
+        else if (ScoreManager.instance.gameMode == 1)
+        {
+            Instantiate(bgMusic2);
+        }
+
         isCounting = true;
-        if(ScoreManager.instance.gameMode == 1)
+        Timer();
+        if (ScoreManager.instance.gameMode == 1)
         {
             timerDuration = endlessTimerDuration;
         }
