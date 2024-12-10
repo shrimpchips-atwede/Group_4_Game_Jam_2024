@@ -2,10 +2,11 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!78 &1
 TagManager:
-  serializedVersion: 2
+  serializedVersion: 3
   tags:
   - Key
   - ground
+  - SpawnPos
   layers:
   - Default
   - TransparentFX
@@ -46,3 +47,5 @@ TagManager:
   - name: Empty
     uniqueID: 1111823875
     locked: 0
+  m_RenderingLayers:
+  - Default

@@ -7,6 +7,8 @@ public class Assignments : MonoBehaviour
 {
     public List<string> assignmentList = new List<string>();
     public List<Material> materials = new List<Material>();
+    public List<string> storyAssignmentList = new List<string>();
+    public List<string> endlessAssignmentList = new List<string>();
 
     public GameObject AssignmentStartPos;
     public GameObject AssignmentPaper;
@@ -23,12 +25,24 @@ public class Assignments : MonoBehaviour
     public AudioSource printersound;
     public AudioSource fallsound;
 
+    public TextMeshPro endlessText;
+
     //public MainComputerScreen screen;
     // Start is called before the first frame update
     void Start()
     {
         scoreManager = FindFirstObjectByType<ScoreManager>();
-        //screen = FindFirstObjectByType<MainComputerScreen>();//use dotween to translate
+        if (ScoreManager.instance.gameMode == 1)
+        {
+            assignmentPaperRenderer.material = materials[10];
+            assignmentList = endlessAssignmentList;
+
+        }
+        else
+        {
+            assignmentList = storyAssignmentList;
+        }
+
 
     }
 
@@ -36,17 +50,36 @@ public class Assignments : MonoBehaviour
     {
         if(MainComputerScreen.instance.playerTypedSentence == assignmentList[currentAssignment])
         {
+            if(ScoreManager.instance.gameMode == 1)
+            {
+                assignmentList.RemoveAt(currentAssignment);
+
+                if (MainComputerScreen.instance.endlessAssignmentCounter > 0)
+                {
+                    MainComputerScreen.instance.EndlessTimerCompleteAssignment();
+                }
+
+
+            }
+
             paperAnim.SetTrigger("Fall");
             fallsound.Play();
-            Invoke("AssignmentReset", 1f); //The 1f here is saying "Call this function after 1 swcond!!!!!!!!! may need to change later
-            Debug.Log("fall animation");
-            //this is where id assign a dotween thing
-            currentAssignment++;
+
+            Invoke("AssignmentReset", 1f);
+
+
             if (currentAssignment == assignmentList.Count)
             {
-                MainComputerScreen.instance.EndGame();
+                ScoreManager.instance.EndGame();
             }
-            //assignmentText.text = assignmentList[currentAssignment];
+
+
+
+
+            if (ScoreManager.instance.gameMode == 0)
+            {
+                currentAssignment++;
+            }
 
             scoreManager.score++;
             Debug.Log("correct text"); 
@@ -62,7 +95,12 @@ public class Assignments : MonoBehaviour
     public void StartFirstAssignment()
     {
         //assignmentText.text = assignmentList[currentAssignment];//would set assignment text
-        
+        if (ScoreManager.instance.gameMode == 1)
+        {
+            endlessText.text = assignmentList[currentAssignment];
+
+        }
+
         AssignmentReset();//maybe?????
     }
 
@@ -72,23 +110,35 @@ public class Assignments : MonoBehaviour
         MainComputerScreen.instance.PressClear();
 
         AssignmentPaper.transform.position = AssignmentStartPos.transform.position;
-        assignmentPaperRenderer.material = materials[currentAssignment];
+
+        if (ScoreManager.instance.gameMode == 0)
+        {
+
+            assignmentPaperRenderer.material = materials[currentAssignment];
+        }
+        else if (ScoreManager.instance.gameMode == 1)
+        {
+
+            currentAssignment = Random.Range(0, assignmentList.Count);
+            endlessText.text = assignmentList[currentAssignment];
+        }
+
         paperAnim.SetTrigger("Print");
         printersound.Play();
-        Debug.Log("print animation");
-        //do dotween stuff here
-        if (currentAssignment == 1)
+
+        if (assignmentList[currentAssignment] == "ball")
         {
             randomDrop.Drop(0);
         }
-        if (currentAssignment == 4)
+        if (assignmentList[currentAssignment] == "banana")
         {
             randomDrop.Drop(1);
         }
-        if (currentAssignment == 6)
+        if (assignmentList[currentAssignment] == "bowling")
         {
             randomDrop.Drop(2);
         }
+
 
 
     }

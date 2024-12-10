@@ -29,11 +29,18 @@ public class MainComputerScreen : MonoBehaviour
     public CinemachineVirtualCamera cam1;
 
 
-    public float maxTime = 300f;  //The current time on the timer;
-    public float timerDuration = 300f;    //The time we need to wait before the timer finishes.
-    public TextMeshPro timertext;
+    public int endlessAssignmentCounter = 0;
+    public int endlessAssignmentCounterMax = 6;
+    public float timerDuration = 300f;
+    public float storyTimerDuration = 300f;
+    public float endlessTimerDuration = 30f;
+
+    public TextMeshPro timerText;
+    public TextMeshPro endlessCounterQueueText;
 
     public bool isCounting = false;
+
+    public int maxedTypedSentLength = 46;
 
     void Awake()
     {
@@ -48,40 +55,26 @@ public class MainComputerScreen : MonoBehaviour
             StartGame();
         }
 
-        if (isCounting == true)
-        {
-            timerDuration -= Time.deltaTime; //Timer increases by the time between frames (at a rate of 1 second per second)
-            int minutes = Mathf.FloorToInt(timerDuration / 60);
-            int seconds = Mathf.FloorToInt(timerDuration % 60);
-
-            timertext.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-        }
-        if (timerDuration <= 0f) //If the timer reaches above the timer duration...
-        {
-            EndGame();
-            
-
-        }
-
-
-       
-        
-
-        //Debug.Log(timerCountingUp);
-    }
-
-    public void EndGame()
-    {
-
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        Timer();
     }
     public void CheckPlayerTextMainComputer()
     {
+
         assignments.CheckPlayerText();
+
+        if(ScoreManager.instance.gameMode == 1)
+        {
+            endlessCounterQueueText.text = endlessAssignmentCounter.ToString();
+            if (endlessAssignmentCounter <= (endlessAssignmentCounterMax - 1))
+            {
+                endlessCounterQueueText.color = Color.white;
+            }
+        }
+
     }
     public void AddKeyToSentence(char character)
     {
-        if(playerTypedSentence.Length < 8)
+        if(playerTypedSentence.Length < maxedTypedSentLength)
         {
             if (isShiftHeldDown == true)
             {
@@ -125,7 +118,19 @@ public class MainComputerScreen : MonoBehaviour
     private void StartGame()
     {
         cam1.Priority = -10;
+        //if scoremanager game mode is set to 0, then
+
         isCounting = true;
+        if(ScoreManager.instance.gameMode == 1)
+        {
+            timerDuration = endlessTimerDuration;
+        }
+        else if (ScoreManager.instance.gameMode == 0)
+        {
+            timerDuration = storyTimerDuration;
+        }
+        //this is really dumb. make an enum in scoremanager???
+
         playerText.text = playerTypedSentence;
         assignments.StartFirstAssignment();
         //show text w timer when game starts.
@@ -176,6 +181,62 @@ public class MainComputerScreen : MonoBehaviour
 
     public void CalculateWPM(int score)
     {
-        ScoreManager.instance.wpm = ((maxTime - timerDuration) / 60) * score;
+        //ScoreManager.instance.wpm = ((maxTime - timerDuration) / 60) * score;
     }
+
+    public void Timer()
+    {
+        if (isCounting == true)
+        {
+            timerDuration -= Time.deltaTime; //Timer increases by the time between frames (at a rate of 1 second per second)
+
+                int minutes = Mathf.FloorToInt(timerDuration / 60);
+                int seconds = Mathf.FloorToInt(timerDuration % 60);
+
+                timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
+            
+
+
+        }
+
+        if (timerDuration <= 0f)
+        {
+            if(ScoreManager.instance.gameMode == 0)
+            {
+                ScoreManager.instance.EndGame();
+            }
+
+            else if (ScoreManager.instance.gameMode == 1)
+            {
+                if(endlessAssignmentCounter < endlessAssignmentCounterMax)
+                {
+                    timerDuration = endlessTimerDuration;
+                    endlessAssignmentCounter++;
+                    endlessCounterQueueText.text = endlessAssignmentCounter.ToString();
+
+
+                    if (endlessAssignmentCounter >= (endlessAssignmentCounterMax - 1))
+                    {
+                        endlessCounterQueueText.color = Color.red;
+                    }
+
+
+                }
+
+                else if (endlessAssignmentCounter == endlessAssignmentCounterMax)
+                {
+                    ScoreManager.instance.EndGame();
+                }
+
+            }
+
+
+        }
+    }
+    public void EndlessTimerCompleteAssignment()
+    {
+        endlessAssignmentCounter--;
+        endlessCounterQueueText.text = endlessAssignmentCounter.ToString();
+    }
+
 }

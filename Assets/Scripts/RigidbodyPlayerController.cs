@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using static UnityEditor.PlayerSettings;
 
 
 public class RigidbodyPlayerController : MonoBehaviour
 {
-    //From claire: in the script:
-    //at the top with the variables
-    //you'll have private animator anim,
-    //then in start youll do anim = getcomponent animator.
-    //in the animator in unity: set up the bools, isWalking
-    //, isJumping, whatever else. then back in the script
-    //when movement is being used, you will say something
-    //like if movementvelocity > 0 then isWalking is true
-    //and otherwise its false. then for the jump, if !isgrounded then isJumping = true
+
     private Animator animator;
     public Rigidbody rb;
     public Collider playerCollider;
@@ -26,11 +20,22 @@ public class RigidbodyPlayerController : MonoBehaviour
     public float jumpForce;
 
     public bool isMoving;
+
+
     void Start()
     {
+        
         playerCollider = GetComponent<Collider>();
         animator = GetComponent<Animator>();
+
+        DontDestroyOnLoad(this);
+
+        GameObject spawnPos = GameObject.FindGameObjectWithTag("SpawnPos");
+        this.transform.position = spawnPos.transform.position;
+
+
     }
+
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -54,25 +59,12 @@ public class RigidbodyPlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
+
         Move();
-        //Jump();
 
 
     }
-    // Start is called before the first frame update
 
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        //if (rb.velocity == Vector3.zero);
-        //{
-        //    isMoving = false;
-        //    Debug.Log(isMoving);
-        //}
-        //isMoving = true;
-    }
     void Move()
     {
         //movementvelocity > 0 then isWalking is true

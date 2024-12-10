@@ -28,7 +28,7 @@ public class Key : MonoBehaviour
     {
 
         MainComputerScreen.instance.AddKeyToSentence(key);
-        Debug.Log("light");
+
         if(audioSource != null)
         {
             Debug.Log("audiosourceisnotnull");

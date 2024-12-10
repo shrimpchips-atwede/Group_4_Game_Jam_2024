@@ -20,4 +20,13 @@ public class DontTouchKey : Key
         }
 
     }
+    protected override void KeyPress()
+    {
+        if (audioSource != null)
+        {
+            Debug.Log("audiosourceisnotnull");
+            audioSource.Play();
+            Debug.Log("played sound");
+        }
+    }
 }
