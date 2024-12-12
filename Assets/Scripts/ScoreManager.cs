@@ -60,7 +60,7 @@ public class ScoreManager : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
 

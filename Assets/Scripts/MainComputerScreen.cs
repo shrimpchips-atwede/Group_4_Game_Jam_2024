@@ -53,10 +53,10 @@ public class MainComputerScreen : MonoBehaviour
     void Update()
     {
         //DELETE THIS IF BUILDING GAME LOL
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            StartGame();
-        }
+        //if (Input.GetKeyDown(KeyCode.O))
+        //{
+        //    StartGame();
+        //}
 
         Timer();
     }
