@@ -13,7 +13,7 @@ public class MainComputerScreen : MonoBehaviour
     //private int sentenceIndex = 0;
 
     //public string currentSentence = "Hello!";
-
+    public bool isPlaytesting = false;
     public string playerTypedSentence = string.Empty;
 
     public bool isShiftHeldDown = false;
@@ -31,7 +31,7 @@ public class MainComputerScreen : MonoBehaviour
 
 
     public int endlessAssignmentCounter = 0;
-    public int endlessAssignmentCounterMax = 6;
+    public int endlessAssignmentCounterMax = 5;
     public float timerDuration = 300f;
     public float storyTimerDuration = 300f;
     public float endlessTimerDuration = 30f;
@@ -53,12 +53,30 @@ public class MainComputerScreen : MonoBehaviour
     void Update()
     {
         //DELETE THIS IF BUILDING GAME LOL
-        //if (Input.GetKeyDown(KeyCode.O))
-        //{
-        //    StartGame();
-        //}
+        if(isPlaytesting)
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                StartGame();
+            }
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                CheckPlayerTextMainComputer();
+            }
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                ScoreManager.instance.EndGame();
+            }
+        }
+
 
         Timer();
+        if (isCounting)
+        {
+            ScoreManager.instance.WPMTimer();
+        }
+
+
     }
     public void CheckPlayerTextMainComputer()
     {

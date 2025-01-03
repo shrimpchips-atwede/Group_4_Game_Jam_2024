@@ -2020,11 +2020,9 @@ MonoBehaviour:
   scoreManager: {fileID: 0}
   score: 0
   wpm: 0
-  gameTimer: 5
+  wpmTimer: 0
   gameMode: 0
   spawnPos: {fileID: 0}
-  bgMusic1: {fileID: 887207026698681577, guid: ee4bd0fc63bb80f47801f5be4ae60775, type: 3}
-  bgMusic2: {fileID: 8356655754258432909, guid: 7d9d78fcffb6b034188e69d339d3d349, type: 3}
 --- !u!4 &1224951924
 Transform:
   m_ObjectHideFlags: 0

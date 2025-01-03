@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ public class ScoreManager : MonoBehaviour
     public GameObject scoreManager;
     public int score;
     public float wpm;
-    public float gameTimer = 5;
+    public float wpmTimer = 0;
     public static ScoreManager instance;
     public int gameMode;
     public GameObject spawnPos;
@@ -49,7 +50,7 @@ public class ScoreManager : MonoBehaviour
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject go in gos)
         {
-            Destroy(go);
+            //Destroy(go);
 
         }
 
@@ -60,7 +61,8 @@ public class ScoreManager : MonoBehaviour
     }
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+
+        if (Input.GetKeyDown(KeyCode.P))//just for playtesting/getting players unstuck
         {
             GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
 
@@ -71,10 +73,12 @@ public class ScoreManager : MonoBehaviour
                 go.transform.position = spawnPos.transform.position;
             }
         }
+
     }
     public void EndGame()
     {
-        MainComputerScreen.instance.CalculateWPM(score);
+        MainComputerScreen.instance.isCounting = false;
+        CalculateWPM(score);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
     public void SetGameMode(int i)
@@ -84,6 +88,7 @@ public class ScoreManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
     {
+
         Debug.Log("Re-Initializing", this);
 
 
@@ -97,15 +102,29 @@ public class ScoreManager : MonoBehaviour
         }
 
 
-        // return if not the start calling scene
+        // return if not the start calling scene//no idea what this means
         if (!string.Equals(scene.path, this.scene.path))
         {
             return;
         }
 
 
+        
 
 
-
+    }
+    public void WPMTimer()
+    {
+        wpmTimer += Time.deltaTime;
+        Debug.Log(wpmTimer);
+ 
+        //set variable to zero, start timer if bool is true
+        //if bool is false, assign time to variable, stop timer
+    }
+    public void CalculateWPM(int score)
+    {
+        wpm = score/(wpmTimer / 60);
+        wpmTimer = 0f;
+        //ScoreManager.instance.wpm = ((maxTime - timerDuration) / 60) * score;
     }
 }

@@ -25,7 +25,7 @@ public class EndScreen : MonoBehaviour
         score = scoreManager.score;
 
         scoreText.text = score.ToString();
-        if (scoreManager.score <= 2)
+        if (ScoreManager.instance.score <= 10)//rework this
         {
             BG.GetComponent<Image>().sprite = badBG;
         }
@@ -34,7 +34,8 @@ public class EndScreen : MonoBehaviour
             BG.GetComponent<Image>().sprite = goodBG;
         }
 
-        wpmText.text = "WPM: " + scoreManager.wpm.ToString();
+        wpmText.text = "WPM: " + ScoreManager.instance.wpm.ToString("0.0");
+
     }
     // Start is called before the first frame update
     public void Restart()
