@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class RigidbodyPlayerController : MonoBehaviour
 {
+    public int playerNumber;
     private PlayerInput playerInput;
     private Animator animator;
     public Rigidbody rb;
@@ -21,7 +22,8 @@ public class RigidbodyPlayerController : MonoBehaviour
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
     public SkinnedMeshRenderer skinnedMeshRenderer;
-    public List<Material> materials;
+    public int currentPlayerMaterial;
+    public MainMenu menu;
 
 
     public bool isDashing;
@@ -37,9 +39,11 @@ public class RigidbodyPlayerController : MonoBehaviour
         DontDestroyOnLoad(this);
 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        int numberOfPlayers = players.Length-1;
+        playerNumber = players.Length-1;
 
-        skinnedMeshRenderer.material = materials[numberOfPlayers];
+        skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerNumber];
+        currentPlayerMaterial = playerNumber;
+
 
         GameObject spawnPos = GameObject.FindGameObjectWithTag("SpawnPos");
         this.transform.position = spawnPos.transform.position;
@@ -122,6 +126,7 @@ public class RigidbodyPlayerController : MonoBehaviour
             rb.linearVelocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
             Debug.Log("not falling");
         }
+       
     }
     void Jump()
     {
@@ -171,5 +176,20 @@ public class RigidbodyPlayerController : MonoBehaviour
         {
             animator.SetBool("isJumping", false);
         }
+    }
+
+    public void ChangePlayerMat(int leftOrRight)
+    {
+        if (currentPlayerMaterial + leftOrRight < 0)
+        {
+            currentPlayerMaterial = ScoreManager.instance.materials.Count;
+        }
+        else if (currentPlayerMaterial + leftOrRight > ScoreManager.instance.materials.Count)
+        {
+            currentPlayerMaterial = 0;
+        }
+
+
+        skinnedMeshRenderer.material = ScoreManager.instance.materials[currentPlayerMaterial];
     }
 }

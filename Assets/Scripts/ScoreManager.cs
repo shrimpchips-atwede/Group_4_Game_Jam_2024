@@ -16,7 +16,7 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager instance;
     public int gameMode;
     public GameObject spawnPos;
-
+    public List<Material> materials;
 
 
     private void Awake()
@@ -40,6 +40,7 @@ public class ScoreManager : MonoBehaviour
 
         if(instance != null)
         {
+            Debug.Log("killing instance of score manager");
             Destroy(this.gameObject);
         }
         else
@@ -50,7 +51,8 @@ public class ScoreManager : MonoBehaviour
         GameObject[] gos = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject go in gos)
         {
-            //Destroy(go);
+            Destroy(go);
+            Debug.Log("destroyed" + go.name);
 
         }
 

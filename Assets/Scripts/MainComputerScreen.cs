@@ -45,6 +45,7 @@ public class MainComputerScreen : MonoBehaviour
 
     public GameObject bgMusic1;
     public GameObject bgMusic2;
+
     void Awake()
     {
         instance = this;
@@ -67,6 +68,7 @@ public class MainComputerScreen : MonoBehaviour
             {
                 ScoreManager.instance.EndGame();
             }
+
         }
 
 

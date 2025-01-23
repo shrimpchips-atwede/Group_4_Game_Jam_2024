@@ -17,6 +17,10 @@ public class MainMenu : MonoBehaviour
     public Button storyModeButton;
     public Button endlessModeButton;
     public Button backButton;
+
+    public bool isPlayer1Ready = false;
+    public bool isPlayer2Ready = false;
+
     public void Start()
     {
         modeMenu.enabled = false;
