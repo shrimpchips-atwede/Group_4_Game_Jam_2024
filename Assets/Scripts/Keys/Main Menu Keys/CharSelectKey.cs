@@ -1,27 +1,55 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class CharSelectKey : Key
 {
-    public int charSelectPlayer;
+    public int charSelectPlayer;//set this to 1 or 2 depending on which player it is being used for
     public bool firstPress = true;
-    public GameObject Player;
+    public GameObject player;
     public RigidbodyPlayerController rbpc;
-    public int leftOrRight;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public bool leftOrRight;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        {
+            for (int i = 0; i < players.Length; i++)
+            {
+                if (GetComponent<PlayerData>().playerNumber == charSelectPlayer)
+                {
+                    player = players[i];
+                    break;
+                }
+            }
+
+
+        }
+    }
     protected override void KeyPress()
     {
         if (firstPress)
         {
-            firstPress = false;
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            for (int i = 0; i < players.Length; i++)
             {
-                if(i == charSelectPlayer)
+                for (int i = 0; i < players.Length; i++)
                 {
-                    Player = players[i]; rbpc = Player.GetComponent<RigidbodyPlayerController>(); break;
+                    if (GetComponent<PlayerData>().playerNumber == charSelectPlayer)
+                    {
+                        player = players[i];
+                        firstPress = false;
+                        break;
+                    }
                 }
+
+
             }
+            firstPress = false;
+
         }
-        rbpc.ChangePlayerMat(leftOrRight);
+
+        player.GetComponent<PlayerData>().ChangePlayerProfile(leftOrRight);
+
     }
 }

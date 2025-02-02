@@ -8,21 +8,20 @@ using UnityEngine.SceneManagement;
 
 public class RigidbodyPlayerController : MonoBehaviour
 {
-    public int playerNumber;
+
     private PlayerInput playerInput;
     private Animator animator;
     public Rigidbody rb;
     public Collider playerCollider;
     public float speed, dashSpeed, baseSpeed, sensitivity, maxForce;
     private Vector2 move;
-    private float lookRotation;
+    //private float lookRotation;
 
     public bool isGrounded;
     public float jumpForce;
     public float fallMultiplier = 2.5f;
     public float lowJumpMultiplier = 2f;
-    public SkinnedMeshRenderer skinnedMeshRenderer;
-    public int currentPlayerMaterial;
+
     public MainMenu menu;
 
 
@@ -38,11 +37,7 @@ public class RigidbodyPlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         DontDestroyOnLoad(this);
 
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        playerNumber = players.Length-1;
 
-        skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerNumber];
-        currentPlayerMaterial = playerNumber;
 
 
         GameObject spawnPos = GameObject.FindGameObjectWithTag("SpawnPos");
@@ -178,18 +173,18 @@ public class RigidbodyPlayerController : MonoBehaviour
         }
     }
 
-    public void ChangePlayerMat(int leftOrRight)
-    {
-        if (currentPlayerMaterial + leftOrRight < 0)
-        {
-            currentPlayerMaterial = ScoreManager.instance.materials.Count;
-        }
-        else if (currentPlayerMaterial + leftOrRight > ScoreManager.instance.materials.Count)
-        {
-            currentPlayerMaterial = 0;
-        }
+    //public void ChangePlayerMat(int leftOrRight)
+    //{
+    //    if (currentPlayerMaterial + leftOrRight < 0)
+    //    {
+    //        currentPlayerMaterial = ScoreManager.instance.materials.Count;
+    //    }
+    //    else if (currentPlayerMaterial + leftOrRight > ScoreManager.instance.materials.Count)
+    //    {
+    //        currentPlayerMaterial = 0;
+    //    }
 
 
-        skinnedMeshRenderer.material = ScoreManager.instance.materials[currentPlayerMaterial];
-    }
+    //    skinnedMeshRenderer.material = ScoreManager.instance.materials[currentPlayerMaterial];
+    //}
 }
