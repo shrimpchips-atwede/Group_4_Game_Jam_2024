@@ -26,6 +26,7 @@ public class RigidbodyPlayerController : MonoBehaviour
 
 
     public bool isDashing;
+    public bool isColliding;
 
 
     void Start()
@@ -79,7 +80,11 @@ public class RigidbodyPlayerController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Move();
+        if(isColliding &&!isGrounded)
+        {
+            Move();
+        }
+
     }
 
     void Move()
@@ -172,7 +177,14 @@ public class RigidbodyPlayerController : MonoBehaviour
             animator.SetBool("isJumping", false);
         }
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        isColliding = true;
+    }
+    private void OnCollisionExit(Collision collision)
+    {
+        isColliding = false;
+    }
     //public void ChangePlayerMat(int leftOrRight)
     //{
     //    if (currentPlayerMaterial + leftOrRight < 0)
