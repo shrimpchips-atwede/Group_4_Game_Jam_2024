@@ -82,9 +82,9 @@ public class RigidbodyPlayerController : MonoBehaviour
     {
         if(isColliding &&!isGrounded)
         {
-            Move();
+            return;
         }
-
+        Move();
     }
 
     void Move()
