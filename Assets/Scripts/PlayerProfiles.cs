@@ -1,18 +1,21 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using AASave;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 using static PlayerData;
 using static RigidbodyPlayerController;
 
 
+
 // Save System component on the Save System GameObject.
 
 public class PlayerProfiles : MonoBehaviour
 {
+    public GameObject saveSystemGO;
+    public SaveSystem saveSystem;
 
-    private SaveSystem initSaveSystem;
 
 
     public List<Material> playerMaterials;
@@ -26,18 +29,60 @@ public class PlayerProfiles : MonoBehaviour
     public int alreadySelected;
     public void Awake()
     {
+        Instantiate(saveSystemGO);
+        saveSystem = saveSystemGO.GetComponent<SaveSystem>();
+        saveSystem.subFolder = true;
+        bool exists = saveSystem.DoesDataExists("initialized");
+        if (exists)
+        {
 
+            return;
+        }
+
+        if(!exists)
+        {
+            for(int i = 0; i < 8; i++)
+            {
+                saveSystem.subFolderName = "PlayerData_" + i.ToString();
+                bool initialized = true;
+                saveSystem.Save(saveSystem.subFolderName + "_initializedBool", initialized);
+
+                int playerLevelsCompleted = 0;
+                saveSystem.Save(saveSystem.subFolderName + "_levelsCompleted", playerLevelsCompleted);
+
+                int playerWordsCompleted = 0;
+                saveSystem.Save(saveSystem.subFolderName + "_wordsCompleted", playerWordsCompleted);
+
+                int playerWagesCollected = 0;
+                saveSystem.Save(saveSystem.subFolderName + "_wagesCollected", playerWagesCollected);
+
+                float WPM = 0f;
+
+                saveSystem.Save(saveSystem.subFolderName + "_WPM", WPM);
+
+                bool[] playerHatsCollected = { false, false, false };
+                saveSystem.Save(saveSystem.subFolderName + "_hat", playerHatsCollected);
+
+                bool[] playerAchievementsCompleted = { false, false, false };
+                saveSystem.Save(saveSystem.subFolderName + "_achievement", playerAchievementsCompleted);
+
+                //playerLevelsCompleted = 
+                //playerLevelsCompleted = ;
+                //playerhat;
+                //collectedWages;
+                //achievement;
+
+                //totalWordsTyped;
+
+
+
+
+
+            }
+        }
     }
     public void Start()
     {
-
-        //check if there are any player saves
-        //if so, load them into the scene
-        //then load the rest of them and make new loads based off a prefab
-        //on actual game start, delete all of the player profiles that dont corrospond to a player in the scene
-        //for different save files, declare new public save system variables
-
-        //how do i check for subfolders on game start?
 
         if (instance != null)
         {

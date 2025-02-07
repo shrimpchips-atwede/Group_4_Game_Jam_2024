@@ -124,7 +124,7 @@ public class RigidbodyPlayerController : MonoBehaviour
         else if (rb.linearVelocity.y > 0 && !jump.IsPressed())
         {
             rb.linearVelocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-            Debug.Log("not falling");
+            //Debug.Log("not falling");
         }
        
     }
