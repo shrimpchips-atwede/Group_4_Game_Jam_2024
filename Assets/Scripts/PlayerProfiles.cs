@@ -1,13 +1,7 @@
 using System.Collections.Generic;
-using System.Diagnostics;
 using AASave;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.ProBuilder.MeshOperations;
-using static PlayerData;
-using static RigidbodyPlayerController;
-
-
+using Debug = UnityEngine.Debug;//
 
 // Save System component on the Save System GameObject.
 
@@ -16,26 +10,26 @@ public class PlayerProfiles : MonoBehaviour
     public GameObject saveSystemGO;
     public SaveSystem saveSystem;
 
-
-
     public List<Material> playerMaterials;
     
-
-
     public bool hasGameStarted = false;
 
     public static PlayerProfiles instance;
 
     public int alreadySelected;
+
+    
+
+
     public void Awake()
     {
         Instantiate(saveSystemGO);
         saveSystem = saveSystemGO.GetComponent<SaveSystem>();
-        saveSystem.subFolder = true;
-        bool exists = saveSystem.DoesDataExists("initialized");
+        bool exists = saveSystem.DoesDataExists("PlayerData_7_initializedBool");
+        Debug.Log("save data exists:" + exists);
         if (exists)
         {
-
+            
             return;
         }
 
@@ -43,6 +37,7 @@ public class PlayerProfiles : MonoBehaviour
         {
             for(int i = 0; i < 8; i++)
             {
+                saveSystem.subFolder = true;
                 saveSystem.subFolderName = "PlayerData_" + i.ToString();
                 bool initialized = true;
                 saveSystem.Save(saveSystem.subFolderName + "_initializedBool", initialized);
@@ -97,28 +92,28 @@ public class PlayerProfiles : MonoBehaviour
 
     }
 
-    public void ChangePlayerProfile(PlayerData playerData, int playerProfile, int leftOrRight)
-    {
-        if( playerData.playerProfileNumber + leftOrRight == alreadySelected)
-        {
-            leftOrRight = leftOrRight*2;
+    //public void ChangePlayerProfile(PlayerData playerData, int playerProfile, int leftOrRight)
+    //{
+    //    if( playerData.playerProfileNumber + leftOrRight == alreadySelected)
+    //    {
+    //        leftOrRight = leftOrRight*2;
 
-        }
-        if(playerData.playerProfileNumber + leftOrRight > 7)
-        {
-            playerData.playerProfileNumber = 0;
+    //    }
+    //    if(playerData.playerProfileNumber + leftOrRight > 7)
+    //    {
+    //        playerData.playerProfileNumber = 0;
 
-        }
-        else if (playerData.playerProfileNumber + leftOrRight < 7)
-        {
-            playerData.playerProfileNumber = 7;
-        }
-        else
-        {
-            playerData.playerProfileNumber++;
-        }
+    //    }
+    //    else if (playerData.playerProfileNumber + leftOrRight < 7)
+    //    {
+    //        playerData.playerProfileNumber = 7;
+    //    }
+    //    else
+    //    {
+    //        playerData.playerProfileNumber++;
+    //    }
 
-    }
+    //}
     public void SelectPlayerProfile(PlayerData playerData, int playerProfile)
     {
 

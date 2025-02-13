@@ -7,6 +7,25 @@ public class UpAndDownSelectKey : Key
     public int charSelectPlayer;//set this to 1 or 2 depending on which player it is being used for
     public GameObject player;
     public PlayerData playerData;
+    //public Hats hats;
+    public int selection;
 
-    //rn, just change player color, and player subfolder. Also, indicate selected profiles.
+    //public 
+
+    protected override void KeyPress()
+    {
+        base.KeyPress();
+
+
+        if (isUpKey)
+        {
+
+        }
+        else
+        {
+
+        }
+    }
+
+
 }

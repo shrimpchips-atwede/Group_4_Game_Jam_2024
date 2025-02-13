@@ -7,7 +7,17 @@ public class LeftAndRightSelectKey : Key
     public bool firstPress = true;
     public GameObject player;
     public PlayerData playerData;
-    public bool RightKey;
+    public bool isRightKey;
+    public PlayerProfileUI playerProfileUI;
+    public UpAndDownSelectKey upAndDownSelectKey;
+
+
+
+
+    //public float scrollProfileTimer = 0f;
+    //public float scrollProfileTimerDuration = 100f;
+    //public bool isCounting = false;
+
 
     void Update()
     {
@@ -15,8 +25,8 @@ public class LeftAndRightSelectKey : Key
         {
 
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            if (players.Length > 0)
             {
-                //Debug.Log(players.Length);
                 for (int i = 0; i < players.Length; i++)
                 {
 
@@ -24,29 +34,62 @@ public class LeftAndRightSelectKey : Key
                     {
                         player = players[i];
                         playerData = player.GetComponent<PlayerData>();
+                        if (isRightKey) //int playerProfileNumber, int wagesCollected, float wpm, int levelsCompleted
+                        {
+                            playerProfileUI.UpdatePlayerDataUI(playerData.playerProfileNumber, playerData.wagesCollected, playerData.wpm, playerData.levelsCompleted);
+                            Debug.Log("update playerdataui for player" + playerData.playerProfileNumber);
+                        }
                         //Debug.Log(player.name);
                         break;
 
                     }
 
                 }
-
-
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.L))//just for playtesting/getting players unstuck
-        {
-            KeyPress();
         }
+        //if (isCounting && player != null) { ProfileScrollTimer(); Debug.Log(scrollProfileTimer); }
+
     }
+
+
 
     protected override void KeyPress()
     {
         //why u no work
-        Debug.Log("Right" + RightKey + "isPressed");
-        playerData.ChangePlayerProfile(RightKey);
+        Debug.Log("Right" + isRightKey + "isPressed");
+
+        playerData.ChangePlayerProfile(isRightKey);
+        playerProfileUI.UpdatePlayerDataUI(playerData.playerProfileNumber, playerData.wagesCollected, playerData.wpm, playerData.levelsCompleted);
+        //base.KeyPress();
 
 
     }
+    //public void OnTriggerStay(Collider other)
+    //{
+    //    if (!isCounting && player != null && other.tag == "Key") 
+    //    {
+    //        isCounting = true;
+    //    }
+    //    Debug.Log(other.name);
+
+    //}
+    //protected override void KeyRelease()
+    //{
+    //    scrollProfileTimer = 0f;
+    //    isCounting = false;
+    //}
+
+    //private void ProfileScrollTimer()
+    //{
+
+    //    scrollProfileTimer += Time.deltaTime; //Timer increases by the time between frames (at a rate of 1 second per second)
+
+    //    if (scrollProfileTimer >= scrollProfileTimerDuration) 
+    //    {
+    //        KeyPress();
+    //        scrollProfileTimer = 0f;
+    //    }
+
+    //}
 }

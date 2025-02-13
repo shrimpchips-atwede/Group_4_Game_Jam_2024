@@ -502,7 +502,7 @@ MonoBehaviour:
   sensitivity: 0.1
   maxForce: 1
   isGrounded: 0
-  jumpForce: 6
+  jumpForce: 3
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   menu: {fileID: 0}
@@ -564,17 +564,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   saveSystemGO: {fileID: 4726754403531580214, guid: 8bedcb3dd222fc949b8b68c79bf92476, type: 3}
-  saveSystem: {fileID: 0}
+  saveSystem: {fileID: 1979618212774665932, guid: 8bedcb3dd222fc949b8b68c79bf92476, type: 3}
   skinnedMeshRenderer: {fileID: 3349753738860246361}
   playerMat: {fileID: 0}
   playerNumber: 0
   playerProfileNumber: 0
-  playerLevelsCompleted: 0
-  totalWordsTyped: 0
-  collectedWages: 0
-  playerhat: []
-  achievement: []
-  playerName: 
+  levelsCompleted: 0
+  wordsCompleted: 0
+  wagesCollected: 0
+  wpm: 0
+  hatsCollected: 
+  achievementsCompleted: 
 --- !u!1 &6805824585123780794
 GameObject:
   m_ObjectHideFlags: 0

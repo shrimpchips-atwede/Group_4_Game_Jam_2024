@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using AASave;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public class PlayerData : MonoBehaviour
@@ -8,12 +9,12 @@ public class PlayerData : MonoBehaviour
     public GameObject saveSystemGO;
     public SaveSystem saveSystem;
     public SkinnedMeshRenderer skinnedMeshRenderer;
-    public Material playerMat;
+    //public Material playerMat;
 
     public int playerNumber;
     public int playerProfileNumber;
 
-    public int levelsCompleted ;
+    public int levelsCompleted;
     public int wordsCompleted;
     public int wagesCollected;
     public float wpm;
@@ -30,24 +31,10 @@ public class PlayerData : MonoBehaviour
 
     public void Start()
     {
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        {
-            if (players.Length == 1)
-            {
-                playerNumber = 0;
-            }
-            else
-            {
-                playerNumber = 1;
-            }
-        }
-        //is this a dumb way to do this?
-        //should i do->bool array to see if any folders exist
-        //if they do, load them into char select manager
-        //if not, populate ui elements with blank profile info
-        //only on confirm player do you apply the info to the player.
-        //overthinking this?
-        
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if(player != null) {playerNumber = 0;}
+        else { playerNumber = 1; };
+
         skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerNumber];
 
         playerProfileNumber = playerNumber;
@@ -56,11 +43,27 @@ public class PlayerData : MonoBehaviour
         saveSystem.subFolder = true;
         saveSystem.subFolderName = "PlayerData_" + playerNumber.ToString();
 
-
     }
 
 
-
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))//just for playtesting/getting players unstuck
+        {
+            SavePlayerData();
+            Debug.Log("levels completed:" + levelsCompleted + ",wordsCompleted " + wordsCompleted + ",wagesCollected: " + wagesCollected + ",wpm: " + wpm);
+        }
+        if (Input.GetKeyDown(KeyCode.K))//just for playtesting/getting players unstuck
+        {
+            LoadPlayerData();
+            Debug.Log("levels completed:" + levelsCompleted + ",wordsCompleted " + wordsCompleted + ",wagesCollected: " + wagesCollected + ",wpm: " + wpm);
+        }
+        if (Input.GetKeyDown(KeyCode.J))//just for playtesting/getting players unstuck
+        {
+            saveSystem.subFolderName = "PlayerData_" + playerProfileNumber.ToString();
+            Debug.Log(saveSystem.subFolderName);
+        }
+    }
 
     public void ChangePlayerProfile(bool RightKey)//this logic is probably dumb... would want to just use ints but doesnt work with logic elsewhere i dont think...
     {
@@ -69,6 +72,7 @@ public class PlayerData : MonoBehaviour
             if (playerProfileNumber+1 == PlayerProfiles.instance.alreadySelected)
             {
                 playerProfileNumber = PlayerProfiles.instance.alreadySelected+1;
+                Debug.Log(playerProfileNumber-1 + "is already selected. moving you to" + playerProfileNumber);
 
             }
             if (playerProfileNumber+1 > 7)
@@ -79,6 +83,7 @@ public class PlayerData : MonoBehaviour
             else
             {
                 playerProfileNumber = playerProfileNumber+1;
+                Debug.Log("value change withing range");
             }
 
         }
@@ -87,6 +92,7 @@ public class PlayerData : MonoBehaviour
             if (playerProfileNumber-1 == PlayerProfiles.instance.alreadySelected)
             {
                 playerProfileNumber = PlayerProfiles.instance.alreadySelected-1;
+                Debug.Log(playerProfileNumber+1 + "is already selected. moving you to" + playerProfileNumber);
 
             }
             if (playerProfileNumber-1 < 0)
@@ -96,11 +102,16 @@ public class PlayerData : MonoBehaviour
             else
             {
                 playerProfileNumber = playerProfileNumber-1;
+                Debug.Log("value change within range");
             }
         }
         skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerProfileNumber];
         saveSystem.subFolderName = "PlayerData_" + playerProfileNumber.ToString();
         LoadPlayerData();
+    }
+    public void ChangeHat()
+    {
+        //access hat dictionary. using list of bools, make new list of unlocked hats. let player scroll through hats.
     }
     public void LoadPlayerData()
     {
@@ -114,11 +125,12 @@ public class PlayerData : MonoBehaviour
     }
     public void SavePlayerData()
     {
-        //levelsCompleted = 0;
-        //wordsCompleted;
-        //wagesCollected = 0;
-        //hatsCollected;
-        //achievementsCompleted;
+        saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_levelsCompleted", levelsCompleted);
+        saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_wordsCompleted", wordsCompleted);
+        saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_wagesCollected", wagesCollected);
+        saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_WPM", wpm);
+        //hatsCollected[] = saveSystem.LoadArray("PlayerData_" + playerProfileNumber.ToString() + "_hat").AsBoolArray();//lists to arrays? or smth else
+        //achievementsCompleted= saveSystem.LoadArray("PlayerData_" + playerProfileNumber.ToString() + "_achievement").AsBoolArray();
     }
 }
 

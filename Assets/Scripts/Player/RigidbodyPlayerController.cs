@@ -174,7 +174,7 @@ public class RigidbodyPlayerController : MonoBehaviour
         isGrounded = state;
         if(isGrounded == false)
         {
-            animator.SetBool("isJumping", false);
+            //Sanimator.SetBool("isJumping", false);
         }
     }
     private void OnCollisionEnter(Collision collision)

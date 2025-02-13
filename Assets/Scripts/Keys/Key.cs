@@ -26,14 +26,18 @@ public class Key : MonoBehaviour
     }
     protected virtual void KeyPress()
     {
-
-        MainComputerScreen.instance.AddKeyToSentence(key);
+        //Debug.Log("before press" + key);
+        if (MainComputerScreen.instance != null)
+        {
+            MainComputerScreen.instance.AddKeyToSentence(key);
+        }
+        //Debug.Log(key);
 
         if(audioSource != null)
         {
-            Debug.Log("audiosourceisnotnull");
+            //Debug.Log("audiosourceisnotnull");
             audioSource.Play();
-            Debug.Log("played sound");
+            //Debug.Log("played sound");
         }
 
     }
@@ -42,7 +46,7 @@ public class Key : MonoBehaviour
         Debug.Log("key release base");
     }
 
-    void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         if (other.tag == "Key")
         {
