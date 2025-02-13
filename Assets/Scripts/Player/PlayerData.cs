@@ -11,8 +11,8 @@ public class PlayerData : MonoBehaviour
     public SkinnedMeshRenderer skinnedMeshRenderer;
     //public Material playerMat;
 
-    public int playerNumber;
-    public int playerProfileNumber;
+    public int playerNumber = 0;
+    public int playerProfileNumber = 0;
 
     public int levelsCompleted;
     public int wordsCompleted;
@@ -20,6 +20,9 @@ public class PlayerData : MonoBehaviour
     public float wpm;
     public List<bool> hatsCollected;
     public List<bool> achievementsCompleted;
+
+
+    public bool deleteData = false;
 
 
     //boolean array for a possible settings menu...
@@ -31,13 +34,13 @@ public class PlayerData : MonoBehaviour
 
     public void Start()
     {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if(player != null) {playerNumber = 0;}
-        else { playerNumber = 1; };
+        GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
+
+        if(player.Length > 1 ) {playerNumber = 1; playerProfileNumber = playerNumber; }
+
 
         skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerNumber];
 
-        playerProfileNumber = playerNumber;
         Instantiate(saveSystemGO);
         saveSystem = saveSystemGO.GetComponent<SaveSystem>();
         saveSystem.subFolder = true;
@@ -65,54 +68,51 @@ public class PlayerData : MonoBehaviour
         }
     }
 
-    public void ChangePlayerProfile(bool RightKey)//this logic is probably dumb... would want to just use ints but doesnt work with logic elsewhere i dont think...
-    {
-        if(RightKey)
-        {
-            if (playerProfileNumber+1 == PlayerProfiles.instance.alreadySelected)
-            {
-                playerProfileNumber = PlayerProfiles.instance.alreadySelected+1;
-                Debug.Log(playerProfileNumber-1 + "is already selected. moving you to" + playerProfileNumber);
+    //public void ChangePlayerProfile(bool RightKey, PlayerData playerData)//this logic is probably dumb... would want to just use ints but doesnt work with logic elsewhere i dont think...
+    //{
+    //    if(RightKey)
+    //    {
+    //        if (playerProfileNumber+1 == PlayerProfiles.instance.alreadySelected)
+    //        {
+    //            playerProfileNumber = PlayerProfiles.instance.alreadySelected+1;
+    //            Debug.Log(playerProfileNumber-1 + "is already selected. moving you to" + playerProfileNumber);
 
-            }
-            if (playerProfileNumber+1 > 7)
-            {
-                playerProfileNumber = 0;
+    //        }
+    //        if (playerProfileNumber+1 > 7)
+    //        {
+    //            playerProfileNumber = 0;
 
-            }
-            else
-            {
-                playerProfileNumber = playerProfileNumber+1;
-                Debug.Log("value change withing range");
-            }
+    //        }
+    //        else
+    //        {
+    //            playerProfileNumber = playerProfileNumber+1;
+    //            Debug.Log("value change withing range");
+    //        }
 
-        }
-        if(!RightKey)
-        {
-            if (playerProfileNumber-1 == PlayerProfiles.instance.alreadySelected)
-            {
-                playerProfileNumber = PlayerProfiles.instance.alreadySelected-1;
-                Debug.Log(playerProfileNumber+1 + "is already selected. moving you to" + playerProfileNumber);
+    //    }
+    //    if(!RightKey)
+    //    {
+    //        if (playerProfileNumber-1 == PlayerProfiles.instance.alreadySelected)
+    //        {
+    //            playerProfileNumber = PlayerProfiles.instance.alreadySelected-1;
+    //            Debug.Log(playerProfileNumber+1 + "is already selected. moving you to" + playerProfileNumber);
 
-            }
-            if (playerProfileNumber-1 < 0)
-            {
-                playerProfileNumber = 7;
-            }
-            else
-            {
-                playerProfileNumber = playerProfileNumber-1;
-                Debug.Log("value change within range");
-            }
-        }
-        skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerProfileNumber];
-        saveSystem.subFolderName = "PlayerData_" + playerProfileNumber.ToString();
-        LoadPlayerData();
-    }
-    public void ChangeHat()
-    {
-        //access hat dictionary. using list of bools, make new list of unlocked hats. let player scroll through hats.
-    }
+    //        }
+    //        if (playerProfileNumber-1 < 0)
+    //        {
+    //            playerProfileNumber = 7;
+    //        }
+    //        else
+    //        {
+    //            playerProfileNumber = playerProfileNumber-1;
+    //            Debug.Log("value change within range");
+    //        }
+    //    }
+    //    skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerProfileNumber];
+    //    saveSystem.subFolderName = "PlayerData_" + playerProfileNumber.ToString();
+    //    LoadPlayerData();
+    //}
+
     public void LoadPlayerData()
     {
 

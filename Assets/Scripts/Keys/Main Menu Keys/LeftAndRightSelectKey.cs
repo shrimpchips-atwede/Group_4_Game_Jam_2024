@@ -36,7 +36,7 @@ public class LeftAndRightSelectKey : Key
                         playerData = player.GetComponent<PlayerData>();
                         if (isRightKey) //int playerProfileNumber, int wagesCollected, float wpm, int levelsCompleted
                         {
-                            playerProfileUI.UpdatePlayerDataUI(playerData.playerProfileNumber, playerData.wagesCollected, playerData.wpm, playerData.levelsCompleted);
+                            playerProfileUI.UpdatePlayerDataUI(playerData);
                             Debug.Log("update playerdataui for player" + playerData.playerProfileNumber);
                         }
                         //Debug.Log(player.name);
@@ -59,8 +59,8 @@ public class LeftAndRightSelectKey : Key
         //why u no work
         Debug.Log("Right" + isRightKey + "isPressed");
 
-        playerData.ChangePlayerProfile(isRightKey);
-        playerProfileUI.UpdatePlayerDataUI(playerData.playerProfileNumber, playerData.wagesCollected, playerData.wpm, playerData.levelsCompleted);
+        PlayerProfiles.instance.UpdatePlayerData(isRightKey, playerData);
+        playerProfileUI.UpdatePlayerDataUI(playerData);
         //base.KeyPress();
 
 

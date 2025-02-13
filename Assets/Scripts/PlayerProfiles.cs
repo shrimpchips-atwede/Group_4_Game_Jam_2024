@@ -18,7 +18,10 @@ public class PlayerProfiles : MonoBehaviour
 
     public int alreadySelected;
 
-    
+    public bool player1Ready = false;
+    public bool player2Ready = false;
+    public int cursorSelection = 0;//this is wrong lol
+
 
 
     public void Awake()
@@ -39,40 +42,8 @@ public class PlayerProfiles : MonoBehaviour
             {
                 saveSystem.subFolder = true;
                 saveSystem.subFolderName = "PlayerData_" + i.ToString();
-                bool initialized = true;
-                saveSystem.Save(saveSystem.subFolderName + "_initializedBool", initialized);
 
-                int playerLevelsCompleted = 0;
-                saveSystem.Save(saveSystem.subFolderName + "_levelsCompleted", playerLevelsCompleted);
-
-                int playerWordsCompleted = 0;
-                saveSystem.Save(saveSystem.subFolderName + "_wordsCompleted", playerWordsCompleted);
-
-                int playerWagesCollected = 0;
-                saveSystem.Save(saveSystem.subFolderName + "_wagesCollected", playerWagesCollected);
-
-                float WPM = 0f;
-
-                saveSystem.Save(saveSystem.subFolderName + "_WPM", WPM);
-
-                bool[] playerHatsCollected = { false, false, false };
-                saveSystem.Save(saveSystem.subFolderName + "_hat", playerHatsCollected);
-
-                bool[] playerAchievementsCompleted = { false, false, false };
-                saveSystem.Save(saveSystem.subFolderName + "_achievement", playerAchievementsCompleted);
-
-                //playerLevelsCompleted = 
-                //playerLevelsCompleted = ;
-                //playerhat;
-                //collectedWages;
-                //achievement;
-
-                //totalWordsTyped;
-
-
-
-
-
+                BlankProfile(saveSystem);
             }
         }
     }
@@ -92,37 +63,159 @@ public class PlayerProfiles : MonoBehaviour
 
     }
 
-    //public void ChangePlayerProfile(PlayerData playerData, int playerProfile, int leftOrRight)
-    //{
-    //    if( playerData.playerProfileNumber + leftOrRight == alreadySelected)
-    //    {
-    //        leftOrRight = leftOrRight*2;
-
-    //    }
-    //    if(playerData.playerProfileNumber + leftOrRight > 7)
-    //    {
-    //        playerData.playerProfileNumber = 0;
-
-    //    }
-    //    else if (playerData.playerProfileNumber + leftOrRight < 7)
-    //    {
-    //        playerData.playerProfileNumber = 7;
-    //    }
-    //    else
-    //    {
-    //        playerData.playerProfileNumber++;
-    //    }
-
-    //}
-    public void SelectPlayerProfile(PlayerData playerData, int playerProfile)
+    public void UpdatePlayerData(bool RightKey, PlayerData playerData)//also pass in hat?
     {
+        switch (cursorSelection)
+        {
+            case 0:
+                ChangePlayerProfile(RightKey, playerData);
+                break;
+
+            case 1:
+                ChangeHat(RightKey, playerData);
+                break;
+
+            case 2:
+                PlayerReady(RightKey, playerData);
+                break;
+
+            case 3:
+                DeleteProfile(RightKey, playerData);
+                break;
+
+        }
+
 
     }
 
 
-    public void EraseProfile(PlayerData playerData)
+
+
+
+
+    public void ChangeHat(bool RightKey, PlayerData playerData)
     {
-        
+        //access hat dictionary. using list of bools, make new list of unlocked hats. let player scroll through hats.
+    }
+    public void ChangePlayerProfile(bool RightKey, PlayerData playerData)//this logic is probably dumb... would want to just use ints but doesnt work with logic elsewhere i dont think...
+    {
+        if (RightKey)
+        {
+            if (playerData.playerProfileNumber + 1 == PlayerProfiles.instance.alreadySelected)
+            {
+                playerData.playerProfileNumber = PlayerProfiles.instance.alreadySelected + 1;
+                Debug.Log(playerData.playerProfileNumber - 1 + "is already selected. moving you to" + playerData.playerProfileNumber);
+
+            }
+            if (playerData.playerProfileNumber + 1 > 7)
+            {
+                playerData.playerProfileNumber = 0;
+
+            }
+            else
+            {
+                playerData.playerProfileNumber = playerData.playerProfileNumber + 1;
+                Debug.Log("value change withing range");
+            }
+
+        }
+        if (!RightKey)
+        {
+            if (playerData.playerProfileNumber - 1 == PlayerProfiles.instance.alreadySelected)
+            {
+                playerData.playerProfileNumber = PlayerProfiles.instance.alreadySelected - 1;
+                Debug.Log(playerData.playerProfileNumber + 1 + "is already selected. moving you to" + playerData.playerProfileNumber);
+
+            }
+            if (playerData.playerProfileNumber - 1 < 0)
+            {
+                playerData.playerProfileNumber = 7;
+            }
+            else
+            {
+                playerData.playerProfileNumber = playerData.playerProfileNumber - 1;
+                Debug.Log("value change within range");
+            }
+        }
+        playerData.skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerData.playerProfileNumber];
+        saveSystem.subFolderName = "PlayerData_" + playerData.playerProfileNumber.ToString();
+        playerData.LoadPlayerData();
+    }
+
+    public void PlayerReady(bool RightKey, PlayerData playerData)
+    {
+        PlayerProfiles.instance.alreadySelected = playerData.playerProfileNumber;
+        if (RightKey)
+        {
+            if(playerData.playerNumber == 0)
+            {
+                player1Ready = true;
+            }
+            else
+            {
+                player2Ready = true;
+            }
+            PlayerProfiles.instance.alreadySelected = playerData.playerProfileNumber;
+        }
+        else
+        {
+            if (playerData.playerNumber == 0)
+            {
+                player1Ready = false;
+            }
+            else
+            {
+                player2Ready = false;
+            }
+            PlayerProfiles.instance.alreadySelected = 100;//idk lol
+        }
+    }
+    public void DeleteProfile(bool RightKey, PlayerData playerData)//02/13/25 need to test logic...
+    {
+        if (RightKey)
+        {
+            if(!playerData.deleteData)
+            {
+                playerData.deleteData = true;
+            }
+            else
+            {
+                BlankProfile(playerData.saveSystem);
+            }
+        }
+        else
+        {
+            if (!playerData.deleteData)
+            {
+                return;
+            }
+            else
+            {
+                playerData.deleteData = true;
+            }
+        }
+
+    }
+    public void BlankProfile(SaveSystem saveSystem)
+    {
+
+        int playerLevelsCompleted = 0;
+        saveSystem.Save(saveSystem.subFolderName + "_levelsCompleted", playerLevelsCompleted);
+
+        int playerWordsCompleted = 0;
+        saveSystem.Save(saveSystem.subFolderName + "_wordsCompleted", playerWordsCompleted);
+
+        int playerWagesCollected = 0;
+        saveSystem.Save(saveSystem.subFolderName + "_wagesCollected", playerWagesCollected);
+
+        float WPM = 0f;
+        saveSystem.Save(saveSystem.subFolderName + "_WPM", WPM);
+
+        bool[] playerHatsCollected = { false, false, false };
+        saveSystem.Save(saveSystem.subFolderName + "_hat", playerHatsCollected);
+
+        bool[] playerAchievementsCompleted = { false, false, false };
+        saveSystem.Save(saveSystem.subFolderName + "_achievement", playerAchievementsCompleted);
     }
 
 }
