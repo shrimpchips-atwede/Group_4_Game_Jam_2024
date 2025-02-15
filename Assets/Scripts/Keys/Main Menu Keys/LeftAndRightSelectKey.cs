@@ -59,7 +59,7 @@ public class LeftAndRightSelectKey : Key
         //why u no work
         Debug.Log("Right" + isRightKey + "isPressed");
 
-        PlayerProfiles.instance.UpdatePlayerData(isRightKey, playerData);
+        PlayerProfiles.instance.UpdatePlayerData(isRightKey, playerData, playerProfileUI);
         playerProfileUI.UpdatePlayerDataUI(playerData);
         //base.KeyPress();
 

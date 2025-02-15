@@ -20,7 +20,7 @@ public class PlayerProfiles : MonoBehaviour
 
     public bool player1Ready = false;
     public bool player2Ready = false;
-    public int cursorSelection = 0;//this is wrong lol
+    //public int cursorSelection = 0;//this is wrong lol
 
 
 
@@ -28,7 +28,10 @@ public class PlayerProfiles : MonoBehaviour
     {
         Instantiate(saveSystemGO);
         saveSystem = saveSystemGO.GetComponent<SaveSystem>();
-        bool exists = saveSystem.DoesDataExists("PlayerData_7_initializedBool");
+        saveSystem.subFolder = true;
+        saveSystem.subFolderName = "PlayerData_7";
+        bool exists = saveSystem.DoesDataExists(saveSystem.subFolderName + "_initializedBool");
+
         Debug.Log("save data exists:" + exists);
         if (exists)
         {
@@ -63,23 +66,23 @@ public class PlayerProfiles : MonoBehaviour
 
     }
 
-    public void UpdatePlayerData(bool RightKey, PlayerData playerData)//also pass in hat?
+    public void UpdatePlayerData(bool RightKey, PlayerData playerData, PlayerProfileUI playerProfileUI)//also pass in hat?
     {
-        switch (cursorSelection)
+        switch (playerProfileUI.cursorSelection)
         {
-            case 0:
+            case 3:
                 ChangePlayerProfile(RightKey, playerData);
                 break;
 
-            case 1:
+            case 2:
                 ChangeHat(RightKey, playerData);
                 break;
 
-            case 2:
+            case 1:
                 PlayerReady(RightKey, playerData);
                 break;
 
-            case 3:
+            case 0:
                 DeleteProfile(RightKey, playerData);
                 break;
 
@@ -137,9 +140,10 @@ public class PlayerProfiles : MonoBehaviour
                 Debug.Log("value change within range");
             }
         }
-        playerData.skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerData.playerProfileNumber];
-        saveSystem.subFolderName = "PlayerData_" + playerData.playerProfileNumber.ToString();
+
+        playerData.saveSystem.subFolderName = "PlayerData_" + playerData.playerProfileNumber.ToString();
         playerData.LoadPlayerData();
+        playerData.skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerData.playerProfileNumber];
     }
 
     public void PlayerReady(bool RightKey, PlayerData playerData)
@@ -191,13 +195,15 @@ public class PlayerProfiles : MonoBehaviour
             }
             else
             {
-                playerData.deleteData = true;
+                playerData.deleteData = false;
             }
         }
 
     }
     public void BlankProfile(SaveSystem saveSystem)
     {
+        bool initializedBool = false;
+        saveSystem.Save(saveSystem.subFolderName + "_initializedBool", initializedBool);
 
         int playerLevelsCompleted = 0;
         saveSystem.Save(saveSystem.subFolderName + "_levelsCompleted", playerLevelsCompleted);

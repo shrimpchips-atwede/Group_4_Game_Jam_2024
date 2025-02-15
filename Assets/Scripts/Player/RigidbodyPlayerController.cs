@@ -85,6 +85,7 @@ public class RigidbodyPlayerController : MonoBehaviour
             return;
         }
         Move();
+
     }
 
     void Move()
@@ -115,17 +116,7 @@ public class RigidbodyPlayerController : MonoBehaviour
     }
     private void Update()
     {
-        var jump = playerInput.actions["Jump"];
-        if (rb.linearVelocity.y < 0)
-        {
-            rb.linearVelocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;//shouldnt modify rb.velocity directly,, use rb addforce instead?
-        }
-
-        else if (rb.linearVelocity.y > 0 && !jump.IsPressed())
-        {
-            rb.linearVelocity += Vector3.up * Physics.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
-            //Debug.Log("not falling");
-        }
+      
        
     }
     void Jump()

@@ -512,7 +512,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!114 &8520534130459703769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -605,6 +605,8 @@ MonoBehaviour:
   wpm: 0
   hatsCollected: 
   achievementsCompleted: 
+  deleteData: 0
+  isInitialized: 0
 --- !u!1 &6805824585123780794
 GameObject:
   m_ObjectHideFlags: 0

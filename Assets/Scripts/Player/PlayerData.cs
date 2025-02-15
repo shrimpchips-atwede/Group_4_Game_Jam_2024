@@ -11,8 +11,8 @@ public class PlayerData : MonoBehaviour
     public SkinnedMeshRenderer skinnedMeshRenderer;
     //public Material playerMat;
 
-    public int playerNumber = 0;
-    public int playerProfileNumber = 0;
+    public int playerNumber;
+    public int playerProfileNumber;
 
     public int levelsCompleted;
     public int wordsCompleted;
@@ -23,7 +23,7 @@ public class PlayerData : MonoBehaviour
 
 
     public bool deleteData = false;
-
+    public bool isInitialized;
 
     //boolean array for a possible settings menu...
     //orrr, if its better for performance, use bool array for whether or not you have an achievement/hat
@@ -35,13 +35,14 @@ public class PlayerData : MonoBehaviour
     public void Start()
     {
         GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
-
-        if(player.Length > 1 ) {playerNumber = 1; playerProfileNumber = playerNumber; }
+        Debug.Log("# of players: "+ player.Length);
+        if(player.Length == 2 ) {playerNumber = 1; playerProfileNumber = playerNumber; }
+        else if(player.Length == 1){ playerNumber = 0; playerProfileNumber = playerNumber; }
 
 
         skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerNumber];
 
-        Instantiate(saveSystemGO);
+        saveSystemGO = Instantiate(saveSystemGO);
         saveSystem = saveSystemGO.GetComponent<SaveSystem>();
         saveSystem.subFolder = true;
         saveSystem.subFolderName = "PlayerData_" + playerNumber.ToString();
@@ -115,7 +116,7 @@ public class PlayerData : MonoBehaviour
 
     public void LoadPlayerData()
     {
-
+        
         levelsCompleted = saveSystem.Load("PlayerData_" + playerProfileNumber.ToString() + "_levelsCompleted").AsInt();
         wordsCompleted = saveSystem.Load("PlayerData_" + playerProfileNumber.ToString() + "_wordsCompleted").AsInt();
         wagesCollected = saveSystem.Load("PlayerData_" + playerProfileNumber.ToString() + "_wagesCollected").AsInt();
@@ -125,6 +126,7 @@ public class PlayerData : MonoBehaviour
     }
     public void SavePlayerData()
     {
+
         saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_levelsCompleted", levelsCompleted);
         saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_wordsCompleted", wordsCompleted);
         saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_wagesCollected", wagesCollected);

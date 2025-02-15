@@ -1,3 +1,4 @@
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -11,8 +12,10 @@ public class UpAndDownSelectKey : Key
     //public Hats hats;
     public int selection;
     public PlayerProfileUI playerProfileUI;
+    //public int cursorSelection = 0;
+    
 
-    //public 
+
 
     protected override void KeyPress()
     {
@@ -21,27 +24,30 @@ public class UpAndDownSelectKey : Key
 
         if (isUpKey)
         {
-            if (PlayerProfiles.instance.cursorSelection == 0 || PlayerProfiles.instance.cursorSelection == 4)
+            if (playerProfileUI.cursorSelection >= playerProfileUI.cursorTransforms.Count)
             {
+
+                playerProfileUI.cursorSelection = 0;
                 return;
             }
             else
             {
-                PlayerProfiles.instance.cursorSelection++;
+                playerProfileUI.cursorSelection = playerProfileUI.cursorSelection+1;
             }
+
         }
         else
         {
-            if (PlayerProfiles.instance.cursorSelection == 4 || PlayerProfiles.instance.cursorSelection == 0)
+            if (playerProfileUI.cursorSelection == 0)
             {
-                return;
+                playerProfileUI.cursorSelection = playerProfileUI.cursorTransforms.Count-1;
             }
             else
             {
-                PlayerProfiles.instance.cursorSelection--;
+                playerProfileUI.cursorSelection = playerProfileUI.cursorSelection-1;
             }
         }
-
+        playerProfileUI.MoveCursor();
     }
 
 

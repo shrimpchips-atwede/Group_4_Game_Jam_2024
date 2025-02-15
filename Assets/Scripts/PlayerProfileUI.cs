@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerProfileUI : MonoBehaviour
 {
-    public string[] playerProfileColors = new string[] { "red", "blue", "orange", "green", "yellow", "purple", "white", "gray" };
+    //public string[] playerProfileColors = new string[] { "red", "blue", "orange", "yellow", "green", "purple", "white", "gray" };
 
     public GameObject profileCursor;
     public TextMeshPro playerProfile;
@@ -19,10 +19,13 @@ public class PlayerProfileUI : MonoBehaviour
     public TextMeshPro profileEnter;
     public TextMeshPro profileDelete;
     public List<GameObject> cursorTransforms;
+    public int cursorSelection;
+
 
 
     public void Start()
     {
+        cursorSelection = cursorTransforms.Count-1;
         MoveCursor();
 
     }
@@ -46,22 +49,26 @@ public class PlayerProfileUI : MonoBehaviour
 
     public void UpdatePlayerDataUI(PlayerData playerData)//also pass in hat?
     {
-        profileCursor.transform.position = cursorTransforms[PlayerProfiles.instance.cursorSelection].transform.position;
-        switch (PlayerProfiles.instance.cursorSelection)
+        profileCursor.transform.position = cursorTransforms[cursorSelection].transform.position;
+        switch (cursorSelection)
         {
             
-            case 0:
-                playerProfile.text = "Player Profile: " + playerProfileColors[playerData.playerProfileNumber];
+            case 3:
+                playerProfile.text = "Player Profile: " + PlayerProfiles.instance.playerMaterials[playerData.playerProfileNumber].name;
                 profileMoney.text = "Collected Wages: " + playerData.wagesCollected;
                 profileWPM.text = "WPM: " + playerData.wpm;
                 profileLevels.text = "Level: " + playerData.levelsCompleted;
+                if(!playerData.isInitialized)
+                {
+                    profileDelete.text = "";
+                }
                 break;
-            case 1:
+            case 2:
 
                 profileHat.text = "yay hat";// grab name of hat from hat dictionary?
 
                 break;
-            case 2:
+            case 1:
                 if (playerData.playerNumber == 0 && PlayerProfiles.instance.player1Ready || playerData.playerNumber == 1 && PlayerProfiles.instance.player2Ready)
                 {
                     profileEnter.text = "player profile confirmed";
@@ -72,8 +79,8 @@ public class PlayerProfileUI : MonoBehaviour
                 }
 
                 break;
-            case 3:
-                if (playerData.deleteData == false)
+            case 0:
+                if (playerData.deleteData == false )
                 {
 
                     profileDelete.text = "Delete :(";
@@ -95,7 +102,8 @@ public class PlayerProfileUI : MonoBehaviour
     }
     public void MoveCursor()
     {
-        profileCursor.transform.position = cursorTransforms[PlayerProfiles.instance.cursorSelection].transform.position;
+        profileCursor.transform.position = cursorTransforms[cursorSelection].transform.position;
+        Debug.Log("profile cursor moved to " +  cursorSelection + "th position");
 
     }
 }
