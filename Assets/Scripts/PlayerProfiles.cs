@@ -16,7 +16,8 @@ public class PlayerProfiles : MonoBehaviour
 
     public static PlayerProfiles instance;
 
-    public int alreadySelected;
+    public int player1AlreadySelected;
+    public int player2AlreadySelected;
 
     public bool player1Ready = false;
     public bool player2Ready = false;
@@ -66,8 +67,11 @@ public class PlayerProfiles : MonoBehaviour
 
     }
 
-    public void UpdatePlayerData(bool RightKey, PlayerData playerData, PlayerProfileUI playerProfileUI)//also pass in hat?
+    public void UpdateProfileMenu(bool RightKey, PlayerData playerData, PlayerProfileUI playerProfileUI)//also pass in hat?
     {
+
+        playerProfileUI.MoveCursor(playerData);
+        Debug.Log(playerProfileUI.cursorSelection);
         switch (playerProfileUI.cursorSelection)
         {
             case 3:
@@ -84,6 +88,7 @@ public class PlayerProfiles : MonoBehaviour
 
             case 0:
                 DeleteProfile(RightKey, playerData);
+
                 break;
 
         }
@@ -104,10 +109,10 @@ public class PlayerProfiles : MonoBehaviour
     {
         if (RightKey)
         {
-            if (playerData.playerProfileNumber + 1 == PlayerProfiles.instance.alreadySelected)
+            if (playerData.playerProfileNumber + 1 == PlayerProfiles.instance.player1AlreadySelected)
             {
-                playerData.playerProfileNumber = PlayerProfiles.instance.alreadySelected + 1;
-                Debug.Log(playerData.playerProfileNumber - 1 + "is already selected. moving you to" + playerData.playerProfileNumber);
+                playerData.playerProfileNumber = PlayerProfiles.instance.player1AlreadySelected + 1;
+                //Debug.Log(playerData.playerProfileNumber - 1 + "is already selected. moving you to" + playerData.playerProfileNumber);
 
             }
             if (playerData.playerProfileNumber + 1 > 7)
@@ -118,26 +123,26 @@ public class PlayerProfiles : MonoBehaviour
             else
             {
                 playerData.playerProfileNumber = playerData.playerProfileNumber + 1;
-                Debug.Log("value change withing range");
+                //Debug.Log("value change withing range");
             }
 
         }
         if (!RightKey)
         {
-            if (playerData.playerProfileNumber - 1 == PlayerProfiles.instance.alreadySelected)
+            if (playerData.playerProfileNumber - 1 == PlayerProfiles.instance.player1AlreadySelected)
             {
-                playerData.playerProfileNumber = PlayerProfiles.instance.alreadySelected - 1;
-                Debug.Log(playerData.playerProfileNumber + 1 + "is already selected. moving you to" + playerData.playerProfileNumber);
+                playerData.playerProfileNumber = PlayerProfiles.instance.player1AlreadySelected - 1;
+                //Debug.Log(playerData.playerProfileNumber + 1 + "is already selected. moving you to" + playerData.playerProfileNumber);
 
             }
-            if (playerData.playerProfileNumber - 1 < 0)
+            if (playerData.playerProfileNumber - 1 <= -1)
             {
                 playerData.playerProfileNumber = 7;
             }
             else
             {
                 playerData.playerProfileNumber = playerData.playerProfileNumber - 1;
-                Debug.Log("value change within range");
+                //Debug.Log("value change within range");
             }
         }
 
@@ -148,7 +153,7 @@ public class PlayerProfiles : MonoBehaviour
 
     public void PlayerReady(bool RightKey, PlayerData playerData)
     {
-        PlayerProfiles.instance.alreadySelected = playerData.playerProfileNumber;
+        PlayerProfiles.instance.player1AlreadySelected = playerData.playerProfileNumber;
         if (RightKey)
         {
             if(playerData.playerNumber == 0)
@@ -159,7 +164,7 @@ public class PlayerProfiles : MonoBehaviour
             {
                 player2Ready = true;
             }
-            PlayerProfiles.instance.alreadySelected = playerData.playerProfileNumber;
+            PlayerProfiles.instance.player1AlreadySelected = playerData.playerProfileNumber;
         }
         else
         {
@@ -171,31 +176,31 @@ public class PlayerProfiles : MonoBehaviour
             {
                 player2Ready = false;
             }
-            PlayerProfiles.instance.alreadySelected = 100;//idk lol
+            PlayerProfiles.instance.player1AlreadySelected = 100;//idk lol
         }
     }
     public void DeleteProfile(bool RightKey, PlayerData playerData)//02/13/25 need to test logic...
     {
         if (RightKey)
         {
-            if(!playerData.deleteData)
+            if (playerData.deleteData <= 1)
             {
-                playerData.deleteData = true;
+                playerData.deleteData++;
             }
-            else
+            else if (playerData.deleteData == 2)
             {
                 BlankProfile(playerData.saveSystem);
             }
         }
         else
         {
-            if (!playerData.deleteData)
+            if (playerData.deleteData == 0)
             {
                 return;
             }
             else
             {
-                playerData.deleteData = false;
+                playerData.deleteData--;
             }
         }
 
@@ -217,11 +222,11 @@ public class PlayerProfiles : MonoBehaviour
         float WPM = 0f;
         saveSystem.Save(saveSystem.subFolderName + "_WPM", WPM);
 
-        bool[] playerHatsCollected = { false, false, false };
-        saveSystem.Save(saveSystem.subFolderName + "_hat", playerHatsCollected);
+        //bool[] playerHatsCollected = { false, false, false };
+        //saveSystem.Save(saveSystem.subFolderName + "_hat", playerHatsCollected);
 
-        bool[] playerAchievementsCompleted = { false, false, false };
-        saveSystem.Save(saveSystem.subFolderName + "_achievement", playerAchievementsCompleted);
+        //bool[] playerAchievementsCompleted = { false, false, false };
+        //saveSystem.Save(saveSystem.subFolderName + "_achievement", playerAchievementsCompleted);
     }
 
 }

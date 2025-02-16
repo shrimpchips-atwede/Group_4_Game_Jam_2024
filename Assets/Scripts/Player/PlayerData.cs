@@ -22,7 +22,7 @@ public class PlayerData : MonoBehaviour
     public List<bool> achievementsCompleted;
 
 
-    public bool deleteData = false;
+    public int deleteData = 0;
     public bool isInitialized;
 
     //boolean array for a possible settings menu...
@@ -31,13 +31,12 @@ public class PlayerData : MonoBehaviour
 
 
 
-
-    public void Start()
+    public void Awake()
     {
         GameObject[] player = GameObject.FindGameObjectsWithTag("Player");
-        Debug.Log("# of players: "+ player.Length);
-        if(player.Length == 2 ) {playerNumber = 1; playerProfileNumber = playerNumber; }
-        else if(player.Length == 1){ playerNumber = 0; playerProfileNumber = playerNumber; }
+        Debug.Log("# of players: " + player.Length);
+        if (player.Length == 2) { playerNumber = 1; playerProfileNumber = playerNumber; }
+        else if (player.Length == 1) { playerNumber = 0; playerProfileNumber = playerNumber; }
 
 
         skinnedMeshRenderer.material = PlayerProfiles.instance.playerMaterials[playerNumber];
@@ -46,6 +45,12 @@ public class PlayerData : MonoBehaviour
         saveSystem = saveSystemGO.GetComponent<SaveSystem>();
         saveSystem.subFolder = true;
         saveSystem.subFolderName = "PlayerData_" + playerNumber.ToString();
+
+        LoadPlayerData();
+    }
+    public void Start()
+    {
+
 
     }
 
@@ -116,7 +121,7 @@ public class PlayerData : MonoBehaviour
 
     public void LoadPlayerData()
     {
-        
+        isInitialized = saveSystem.Load("PlayerData_" + playerProfileNumber.ToString() + "_initializedBool").AsBool();
         levelsCompleted = saveSystem.Load("PlayerData_" + playerProfileNumber.ToString() + "_levelsCompleted").AsInt();
         wordsCompleted = saveSystem.Load("PlayerData_" + playerProfileNumber.ToString() + "_wordsCompleted").AsInt();
         wagesCollected = saveSystem.Load("PlayerData_" + playerProfileNumber.ToString() + "_wagesCollected").AsInt();
@@ -126,11 +131,17 @@ public class PlayerData : MonoBehaviour
     }
     public void SavePlayerData()
     {
-
+        //hmmm. maybe later on, keep two sets of playerdata variables. when saving, compare active data to backup data, and if different, run save system. and then update backup data. better performance? or lateral move...
         saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_levelsCompleted", levelsCompleted);
         saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_wordsCompleted", wordsCompleted);
         saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_wagesCollected", wagesCollected);
         saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_WPM", wpm);
+        if(!isInitialized)
+        {
+            isInitialized = true;
+            saveSystem.Save("PlayerData_" + playerProfileNumber.ToString() + "_initializedBool", isInitialized);
+        }
+            
         //hatsCollected[] = saveSystem.LoadArray("PlayerData_" + playerProfileNumber.ToString() + "_hat").AsBoolArray();//lists to arrays? or smth else
         //achievementsCompleted= saveSystem.LoadArray("PlayerData_" + playerProfileNumber.ToString() + "_achievement").AsBoolArray();
     }

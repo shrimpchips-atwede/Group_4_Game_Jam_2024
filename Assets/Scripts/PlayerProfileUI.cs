@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using AASave;
 using NUnit.Framework;
 using TMPro;
 using Unity.VisualScripting;
@@ -20,26 +21,41 @@ public class PlayerProfileUI : MonoBehaviour
     public TextMeshPro profileDelete;
     public List<GameObject> cursorTransforms;
     public int cursorSelection;
+    public GameObject player;
+    public int charSelectPlayer;
+
 
 
 
     public void Start()
     {
         cursorSelection = cursorTransforms.Count-1;
-        MoveCursor();
+        profileCursor.transform.position = cursorTransforms[cursorSelection].transform.position;
+
+
 
     }
     public void Update()
     {
+        if (player == null)
+        {
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            for (int i = 0; i < players.Length; i++)
+            {
+
+                if (players[i].GetComponent<PlayerData>().playerNumber == charSelectPlayer)
+                {
+                    player = players[i];
+
+                    ChangePlayerProfileUI(player.GetComponent<PlayerData>());//need to do a stupid event. this is being done wrong
+                    break;
+
+                }
+
+            }
 
 
-
-    }
-    public void Play()
-    {
-
-
-
+        }
     }
 
     public void Quit()
@@ -47,21 +63,16 @@ public class PlayerProfileUI : MonoBehaviour
         Application.Quit();
     }
 
-    public void UpdatePlayerDataUI(PlayerData playerData)//also pass in hat?
+    public void UpdateProfileMenuUI(PlayerData playerData)//also pass in hat?
     {
-        profileCursor.transform.position = cursorTransforms[cursorSelection].transform.position;
+
+
+
         switch (cursorSelection)
         {
             
             case 3:
-                playerProfile.text = "Player Profile: " + PlayerProfiles.instance.playerMaterials[playerData.playerProfileNumber].name;
-                profileMoney.text = "Collected Wages: " + playerData.wagesCollected;
-                profileWPM.text = "WPM: " + playerData.wpm;
-                profileLevels.text = "Level: " + playerData.levelsCompleted;
-                if(!playerData.isInitialized)
-                {
-                    profileDelete.text = "";
-                }
+                ChangePlayerProfileUI(playerData);
                 break;
             case 2:
 
@@ -80,14 +91,14 @@ public class PlayerProfileUI : MonoBehaviour
 
                 break;
             case 0:
-                if (playerData.deleteData == false )
-                {
-
-                    profileDelete.text = "Delete :(";
-                }
-                else
+                if (playerData.deleteData <= 1 )
                 {
                     profileDelete.text = "Are you sure? this is undoeable";
+                }
+                else if (playerData.deleteData == 2)
+                {
+                    ChangePlayerProfileUI(playerData);
+
                 }
 
                 break;
@@ -100,10 +111,35 @@ public class PlayerProfileUI : MonoBehaviour
     {
         profileDelete.text = "Are you sure? this is undoeable";
     }
-    public void MoveCursor()
+    public void MoveCursor(PlayerData playerData)
     {
+        if (!playerData.isInitialized)
+        {
+            if (cursorSelection == 0 || cursorSelection > 3)
+            {
+                cursorSelection = 3;
+
+            }
+        }
+
         profileCursor.transform.position = cursorTransforms[cursorSelection].transform.position;
         Debug.Log("profile cursor moved to " +  cursorSelection + "th position");
 
+    }
+    public void ChangePlayerProfileUI(PlayerData playerData)
+    {
+        playerProfile.text = "Player Profile: " + PlayerProfiles.instance.playerMaterials[playerData.playerProfileNumber].name;
+        profileMoney.text = "Collected Wages: " + playerData.wagesCollected;
+        profileWPM.text = "WPM: " + playerData.wpm;
+        profileLevels.text = "Level: " + playerData.levelsCompleted;
+        if (!playerData.isInitialized)
+        {
+            profileDelete.text = "";
+        }
+        else
+        {
+            profileDelete.text = "Delete :(";
+        }
+        Debug.Log(playerData.name);
     }
 }

@@ -47,7 +47,7 @@ public class UpAndDownSelectKey : Key
                 playerProfileUI.cursorSelection = playerProfileUI.cursorSelection-1;
             }
         }
-        playerProfileUI.MoveCursor();
+        playerProfileUI.MoveCursor(playerData);
     }
 
 

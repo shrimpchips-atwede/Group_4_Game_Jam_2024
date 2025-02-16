@@ -9,8 +9,9 @@ public class LeftAndRightSelectKey : Key
     public PlayerData playerData;
     public bool isRightKey;
     public PlayerProfileUI playerProfileUI;
-    public UpAndDownSelectKey upAndDownSelectKey;
-
+    public UpAndDownSelectKey upAndDownSelectKey1;
+    public UpAndDownSelectKey upAndDownSelectKey2;
+    public LeftAndRightSelectKey leftAndRightSelectKey3;
 
 
 
@@ -23,10 +24,9 @@ public class LeftAndRightSelectKey : Key
     {
         if (player == null)
         {
-
-            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-            if (players.Length > 0)
+            if(isRightKey)
             {
+                GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
                 for (int i = 0; i < players.Length; i++)
                 {
 
@@ -34,11 +34,13 @@ public class LeftAndRightSelectKey : Key
                     {
                         player = players[i];
                         playerData = player.GetComponent<PlayerData>();
-                        if (isRightKey) //int playerProfileNumber, int wagesCollected, float wpm, int levelsCompleted
-                        {
-                            playerProfileUI.UpdatePlayerDataUI(playerData);
-                            Debug.Log("update playerdataui for player" + playerData.playerProfileNumber);
-                        }
+                        upAndDownSelectKey1.playerData = playerData;
+                        upAndDownSelectKey2.playerData = playerData;
+                        leftAndRightSelectKey3.playerData = playerData;
+                        //this is really dumb. use an event? ask anthony bc i know im doing this wrong
+
+                        playerProfileUI.ChangePlayerProfileUI(playerData);
+                        Debug.Log("update playerdataui for player" + playerData.playerProfileNumber);
                         //Debug.Log(player.name);
                         break;
 
@@ -46,6 +48,7 @@ public class LeftAndRightSelectKey : Key
 
                 }
             }
+
 
         }
         //if (isCounting && player != null) { ProfileScrollTimer(); Debug.Log(scrollProfileTimer); }
@@ -59,8 +62,8 @@ public class LeftAndRightSelectKey : Key
         //why u no work
         Debug.Log("Right" + isRightKey + "isPressed");
 
-        PlayerProfiles.instance.UpdatePlayerData(isRightKey, playerData, playerProfileUI);
-        playerProfileUI.UpdatePlayerDataUI(playerData);
+        PlayerProfiles.instance.UpdateProfileMenu(isRightKey, playerData, playerProfileUI);
+        playerProfileUI.UpdateProfileMenuUI(playerData);
         //base.KeyPress();
 
 

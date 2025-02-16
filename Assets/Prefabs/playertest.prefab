@@ -533,7 +533,7 @@ MonoBehaviour:
   sensitivity: 0.1
   maxForce: 1
   isGrounded: 0
-  jumpForce: 3
+  jumpForce: 6
   fallMultiplier: 2.5
   lowJumpMultiplier: 2
   menu: {fileID: 0}
