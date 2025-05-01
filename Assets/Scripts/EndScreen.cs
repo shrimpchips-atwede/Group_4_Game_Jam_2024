@@ -20,10 +20,11 @@ public class EndScreen : MonoBehaviour
     void Start()
     {
         scoreManager = FindFirstObjectByType<ScoreManager>();
+        Debug.Log(scoreManager);
         score = scoreManager.score;
 
         scoreText.text = score.ToString();
-        if (scoreManager.score <= 2)
+        if (scoreManager.score <= 3)
         {
             BG.GetComponent<Image>().sprite = badBG;
         }
