@@ -22,6 +22,7 @@ public class Assignments : MonoBehaviour
     public RandomDrop randomDrop;
     public AudioSource printersound;
     public AudioSource fallsound;
+    public AudioSource errorSound;
 
     //public MainComputerScreen screen;
     // Start is called before the first frame update
@@ -54,8 +55,8 @@ public class Assignments : MonoBehaviour
 
         if (MainComputerScreen.instance.playerTypedSentence != assignmentList[currentAssignment])
         {
-            Debug.Log("incorrect text");
-            //this is where id put in buzzer sound effect
+            //Debug.Log("incorrect text");
+            errorSound.Play();
         }
     }
 
