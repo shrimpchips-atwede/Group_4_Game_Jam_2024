@@ -55,8 +55,8 @@ public class Assignments : MonoBehaviour
 
         if (MainComputerScreen.instance.playerTypedSentence != assignmentList[currentAssignment])
         {
-            //Debug.Log("incorrect text");
-            errorSound.Play();
+            Debug.Log("incorrect text");
+            //errorSound.Play();
         }
     }
 
